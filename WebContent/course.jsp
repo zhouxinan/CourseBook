@@ -42,10 +42,10 @@
 			<div id="leftColumn">
 				<div class="columnDiv">
 					<div id="questionIDDiv" class="hidden"><%=currentCourse.getCourseID()%></div>
-					<div id="questionTitle"><%=currentCourse.getCourseName()%></div>
+					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
 					<div id="questionMetadata">
-						<span class="userName"><a
-							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>开课学期：</span><span><%=currentCourse.getSection()%></span>
+						<span class="userName"><span>开课老师：</span><a
+							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>开课学期：</span><span><%=currentCourse.getSection()%></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span>
 					</div>
 				</div>
 				<div class="columnDiv" id="getMoreAnswersDiv">
@@ -59,7 +59,7 @@
 						action="FileUploadServlet?action=addAnswerWithImage"
 						enctype="multipart/form-data">
 						<textarea id="newAnswerContent" name="newAnswerContent"
-							placeholder="我来告诉你们人生的经验……"></textarea>
+							placeholder="我来告诉大家这门课怎么样"></textarea>
 						<div id="resetFileDiv" class="hidden">
 							<input type="file" id="file" name="file" />
 						</div>
@@ -69,12 +69,12 @@
 					<button id="uploadImgButton" class="standardButton">
 						<img src="img/icon/attachment.png" class="icon" />
 					</button>
-					<button class="standardButton" id="sendAnswerButton">发布回答</button>
+					<button class="standardButton" id="sendAnswerButton">发布课评</button>
 					<div class="clear"></div>
 					<%
 						} else {
 					%>
-					<div class="errorMessageDiv">登录后才可以发表回答</div>
+					<div class="errorMessageDiv">登录后才可以发表课评</div>
 					<%
 						}
 					%>
@@ -84,6 +84,6 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/question.js"></script>
+	<script type="text/javascript" src="js/course.js"></script>
 </body>
 </html>

@@ -30,7 +30,7 @@
 				<%
 					if (trendEntryList.size() == 0) {
 				%>
-				<div class="columnDiv">你还没有关注任何用户哦，快点击导航栏的“发现”来关注感兴趣的用户吧！</div>
+				<div class="columnDiv">你还没有关注任何课友哦，快点击导航栏的“发现”来关注感兴趣的课友吧！</div>
 				<%
 					}
 				%>

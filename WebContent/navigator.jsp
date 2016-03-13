@@ -19,18 +19,9 @@
 			<a href="index.jsp">课谱</a>
 		</div>
 		<div id="searchDiv">
-			<input type="text" id="searchInput" placeholder="搜索问题或用户" />
+			<input type="text" id="searchInput" placeholder="搜索选课号／课名／老师／课友" />
 			<button type="submit" id="searchButton">搜索</button>
 		</div>
-		<%
-			if (user != null) {
-		%>
-		<div>
-			<button id="newQuestionButton" class="standardButton">提问题</button>
-		</div>
-		<%
-			}
-		%>
 		<div id="menuDiv">
 			<div class="changeHoverBackground clickbox">
 				<a href="index.jsp">首页</a>

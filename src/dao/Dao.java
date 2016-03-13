@@ -990,13 +990,16 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from course ORDER BY commentCount DESC LIMIT " + numberOfPopularCourses);
+			results = sm.executeQuery(
+					"select * from course inner join user on course.teacherID=user.userID ORDER BY popularity DESC LIMIT "
+							+ numberOfPopularCourses);
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
 				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
+				course.setTeacherName(results.getString("username"));
 				courseList.add(course);
 			}
 			return courseList;
@@ -1025,12 +1028,16 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			results = sm.executeQuery(
-					"select * from course where courseName like '%" + keyword + "%' ORDER BY commentCount DESC");
+					"select * from course inner join user on course.teacherID=user.userID where courseName like '%"
+							+ keyword + "%' or courseSN like '%" + keyword + "%' or user.username like '%" + keyword
+							+ "%' ORDER BY popularity DESC");
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
 				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
+				course.setTeacherName(results.getString("username"));
 				courseList.add(course);
 			}
 			return courseList;
@@ -1103,7 +1110,7 @@ public class Dao {
 			}
 			results.close();
 			toUserIDString += "0)";
-			results = sm.executeQuery("select * from question where userID in " + toUserIDString);
+			results = sm.executeQuery("select * from course where userID in " + toUserIDString);
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				String toUserID = results.getString("userID");

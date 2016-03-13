@@ -21,7 +21,7 @@
 				for (Course course : popularCourseList) {
 			%>
 			<div>
-				<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
+				<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseSN() + " " + course.getCourseName() + "（" + course.getTeacherName() + "）"%></a>
 			</div>
 			<%
 				}

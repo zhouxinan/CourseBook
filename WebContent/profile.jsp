@@ -46,8 +46,8 @@
 		<div id="contentWrapper">
 			<div id="leftColumn">
 				<div id="tabBar" class="columnDiv">
-					<div class="tab active">提问</div>
-					<div class="tab">回答</div>
+					<div class="tab active">所开课程</div>
+					<div class="tab">课评</div>
 				</div>
 				<div id="myQuestionAndAnswerDiv">
 					<div id="myQuestionDiv" class="tabPane active">

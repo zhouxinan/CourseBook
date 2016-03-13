@@ -69,7 +69,7 @@ function getReply(answerID, replyListDiv) {
 function processReplyData(data, replyListDiv) {
 	if (data == "-1") {
 		replyListDiv
-				.html('<div class="replyDiv new"><div class="errorMessageDiv">登录后才可以查看和发表评论</div></div>');
+				.html('<div class="replyDiv new"><div class="errorMessageDiv">登录后才可以查看和发表课评</div></div>');
 		return;
 	}
 	replyListDiv
@@ -163,7 +163,7 @@ function processAnswerData(data) {
 	}
 	startingIndex += data.length;
 	if (data.length < 5) {
-		$("#getMoreAnswersButton").html("没有更多评论了");
+		$("#getMoreAnswersButton").html("没有更多课评了");
 		$("#getMoreAnswersButton").unbind("click");
 		$("#getMoreAnswersButton").css({
 			"color" : "#bdc3c7",

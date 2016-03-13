@@ -41,7 +41,7 @@
 					<div class="trendEntry">
 						<div class="questionDiv">
 							<a href="profile.jsp?id=<%=obj.get("userID")%>" class="userName"><%=obj.get("username")%></a>
-							提问了 <a href="question.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+							提问了 <a href="course.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
 						</div>
 						<div class="replyTime"><%=obj.get("time")%></div>
 					</div>
@@ -55,7 +55,7 @@
 					<div class="trendEntry">
 						<div class="questionDiv">
 							<a href="profile.jsp?id=<%=obj.get("userID")%>" class="userName"><%=obj.get("username")%></a>
-							回答了 <a href="question.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+							回答了 <a href="course.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
 						</div>
 						<div class="answerContent"><%=obj.get("content")%></div>
 						<div class="replyTime"><%=obj.get("time")%></div>
