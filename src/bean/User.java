@@ -6,6 +6,7 @@ public class User {
 	private String email;
 	private String avatarPath;
 	private String motto;
+	private boolean enabled;
 
 	public String getMotto() {
 		return motto;
@@ -45,6 +46,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }

@@ -163,7 +163,7 @@ function processAnswerData(data) {
 	}
 	startingIndex += data.length;
 	if (data.length < 5) {
-		$("#getMoreAnswersButton").html("没有更多答案了");
+		$("#getMoreAnswersButton").html("没有更多评论了");
 		$("#getMoreAnswersButton").unbind("click");
 		$("#getMoreAnswersButton").css({
 			"color" : "#bdc3c7",

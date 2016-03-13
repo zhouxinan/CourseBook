@@ -25,10 +25,8 @@
 		return;
 	}
 	Dao dao = Dao.getInstance();
-	List<Question> questionList = dao
-			.getQuestionListByUserID(currentUser.getUserID());
-	List<JSONObject> answerList = dao.getAnswerListByUserID(currentUser
-			.getUserID());
+	List<Course> courseList = dao.getCourseListByTeacherID(currentUser.getUserID());
+	List<JSONObject> answerList = dao.getAnswerListByUserID(currentUser.getUserID());
 %>
 <html>
 <head>
@@ -54,11 +52,11 @@
 				<div id="myQuestionAndAnswerDiv">
 					<div id="myQuestionDiv" class="tabPane active">
 						<%
-							for (Question question : questionList) {
+							for (Course course : courseList) {
 						%>
 						<div class="columnDiv">
 							<div>
-								<a href="question.jsp?id=<%=question.getQuestionID()%>"><%=question.getTitle()%></a>
+								<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
 							</div>
 						</div>
 						<%
@@ -71,7 +69,7 @@
 						%>
 						<div class="columnDiv">
 							<div>
-								<a href="question.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+								<a href="course.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
 							</div>
 							<div class="replyContent"><%=obj.get("content")%></div>
 							<div class="replyTime"><%=obj.get("answerTime")%></div>

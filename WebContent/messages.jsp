@@ -14,7 +14,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
 <link type="text/css" rel="stylesheet" href="css/messages.css" />
-<script src="lib/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>课谱 - 私信</title>
 </head>

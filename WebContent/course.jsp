@@ -12,14 +12,14 @@
 		return;
 	}
 	Dao dao = Dao.getInstance();
-	Question currentQuestion = null;
+	Course currentCourse = null;
 	try {
-		currentQuestion = dao.getQuestionByID(Integer.parseInt(id));
+		currentCourse = dao.getCourseByID(Integer.parseInt(id));
 	} catch (NumberFormatException e) {
 		response.sendRedirect("404.jsp");
 		return;
 	}
-	if (currentQuestion == null) {
+	if (currentCourse == null) {
 		response.sendRedirect("404.jsp");
 		return;
 	}
@@ -29,7 +29,7 @@
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/question.css" />
-<script src="lib/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,22 +41,12 @@
 		<div id="contentWrapper">
 			<div id="leftColumn">
 				<div class="columnDiv">
-					<div id="questionIDDiv" class="hidden"><%=currentQuestion.getQuestionID()%></div>
-					<div id="questionTitle"><%=currentQuestion.getTitle()%></div>
+					<div id="questionIDDiv" class="hidden"><%=currentCourse.getCourseID()%></div>
+					<div id="questionTitle"><%=currentCourse.getCourseName()%></div>
 					<div id="questionMetadata">
 						<span class="userName"><a
-							href="profile.jsp?id=<%=currentQuestion.getUserID()%>"><%=currentQuestion.getUsername()%></a></span><span>提问于</span><span><%=currentQuestion.getTime()%></span>
+							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>开课学期：</span><span><%=currentCourse.getSection()%></span>
 					</div>
-					<%
-						String questionContent = currentQuestion.getContent();
-						if (questionContent != null) {
-					%>
-					<div>
-						<%=questionContent%>
-					</div>
-					<%
-						}
-					%>
 				</div>
 				<div class="columnDiv" id="getMoreAnswersDiv">
 					<button id="getMoreAnswersButton">显示更多</button>
@@ -90,7 +80,7 @@
 					%>
 				</div>
 			</div>
-			<jsp:include page="popularQuestionAndUser.jsp" />
+			<jsp:include page="sidebar.jsp" />
 			<div class="clear"></div>
 		</div>
 	</div>

@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import bean.Question;
+import bean.Course;
 import bean.User;
 import exception.LoginServletException;
 
@@ -21,7 +21,7 @@ import utility.MyComparator;
 
 public class Dao {
 	private static String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://127.0.0.1:3306/Shihu?useUnicode=true&characterEncoding=UTF-8";
+	String url = "jdbc:mysql://127.0.0.1:3306/CourseBook?useUnicode=true&characterEncoding=UTF-8";
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E");
 
 	// your username and password
@@ -56,16 +56,15 @@ public class Dao {
 		}
 	}
 
-	public User login(String email, String password) throws SQLException,
-			LoginServletException {
+	public User login(String email, String password) throws SQLException, LoginServletException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from user where email='"
-					+ email + "' and password = '" + password + "'");
+			results = sm
+					.executeQuery("select * from user where email='" + email + "' and password = '" + password + "'");
 			if (results.next()) {
 				User user = new User();
 				user.setUserID(results.getInt("userID"));
@@ -94,37 +93,27 @@ public class Dao {
 		return null;
 	}
 
-	public User register(String username, String email, String password)
-			throws SQLException, LoginServletException {
+	public User register(String username, String email, String password) throws SQLException, LoginServletException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from user where username='"
-					+ username + "'");
+			results = sm.executeQuery("select * from user where username='" + username + "'");
 			if (results.next()) {
 				throw new LoginServletException("用户名已被注册");
 			}
 			results.close();
-			results = sm.executeQuery("select * from user where email='"
-					+ email + "'");
+			results = sm.executeQuery("select * from user where email='" + email + "'");
 			if (results.next()) {
 				throw new LoginServletException("邮箱已被注册");
 			}
 			results.close();
-			sm.executeUpdate("insert into user(username, password, email, avatarPath, motto) values('"
-					+ username
-					+ "', '"
-					+ password
-					+ "', '"
-					+ email
-					+ "', 'default.jpg', '这个人太懒，什么都没说……')"); // default avatar
-																// path is
-			// default.jpg
-			results = sm.executeQuery("select * from user where email='"
-					+ email + "'");
+			// default avatar path is default.jpg
+			sm.executeUpdate("insert into user(username, password, email, avatarPath, motto) values('" + username
+					+ "', '" + password + "', '" + email + "', 'default.jpg', '这个人太懒，什么都没说……')");
+			results = sm.executeQuery("select * from user where email='" + email + "'");
 			if (results.next()) {
 				User user = new User();
 				user.setUserID(results.getInt("userID"));
@@ -158,8 +147,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from user where userID='"
-					+ userID + "'");
+			results = sm.executeQuery("select * from user where userID='" + userID + "'");
 			if (results.next()) {
 				User user = new User();
 				user.setUserID(results.getInt("userID"));
@@ -194,12 +182,10 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("insert into follows(fromUserID, toUserID) values('"
-					+ fromUserID + "', '" + toUserID + "')");
-			sm.executeUpdate("UPDATE user SET followerCount=followerCount+1 WHERE userID="
-					+ toUserID);
-			sm.executeUpdate("UPDATE user SET followingCount=followingCount+1 WHERE userID="
-					+ fromUserID);
+			sm.executeUpdate(
+					"insert into follows(fromUserID, toUserID) values('" + fromUserID + "', '" + toUserID + "')");
+			sm.executeUpdate("UPDATE user SET followerCount=followerCount+1 WHERE userID=" + toUserID);
+			sm.executeUpdate("UPDATE user SET followingCount=followingCount+1 WHERE userID=" + fromUserID);
 			return getFollowInfo(user, toUserID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -226,12 +212,10 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("delete from follows where fromUserID='"
-					+ fromUserID + "' and toUserID='" + toUserID + "'");
-			sm.executeUpdate("UPDATE user SET followerCount=followerCount-1 WHERE userID="
-					+ toUserID);
-			sm.executeUpdate("UPDATE user SET followingCount=followingCount-1 WHERE userID="
-					+ fromUserID);
+			sm.executeUpdate(
+					"delete from follows where fromUserID='" + fromUserID + "' and toUserID='" + toUserID + "'");
+			sm.executeUpdate("UPDATE user SET followerCount=followerCount-1 WHERE userID=" + toUserID);
+			sm.executeUpdate("UPDATE user SET followingCount=followingCount-1 WHERE userID=" + fromUserID);
 			return getFollowInfo(user, toUserID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -258,9 +242,8 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from follows where fromUserID='"
-							+ fromUserID + "' and toUserID='" + toUserID + "'");
+			results = sm.executeQuery(
+					"select * from follows where fromUserID='" + fromUserID + "' and toUserID='" + toUserID + "'");
 			if (results.next()) {
 				return true;
 			}
@@ -290,11 +273,8 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			if (user != null) {
-				results = sm
-						.executeQuery("select * from follows where fromUserID='"
-								+ user.getUserID()
-								+ "' and toUserID='"
-								+ userID + "'");
+				results = sm.executeQuery("select * from follows where fromUserID='" + user.getUserID()
+						+ "' and toUserID='" + userID + "'");
 				if (results.next()) {
 					returnObj.put("isFollowed", true);
 				} else {
@@ -302,19 +282,14 @@ public class Dao {
 				}
 				results.close();
 			}
-			results = sm
-					.executeQuery("select followerCount,followingCount from user where userID='"
-							+ userID + "'");
+			results = sm.executeQuery("select followerCount,followingCount from user where userID='" + userID + "'");
 			if (results.next()) {
-				returnObj.put("followerCount",
-						results.getString("followerCount"));
-				returnObj.put("followingCount",
-						results.getString("followingCount"));
+				returnObj.put("followerCount", results.getString("followerCount"));
+				returnObj.put("followingCount", results.getString("followingCount"));
 			}
 			results.close();
-			results = sm
-					.executeQuery("select * from follows where fromUserID='"
-							+ userID + "' ORDER BY followTime DESC LIMIT 5");
+			results = sm.executeQuery(
+					"select * from follows where fromUserID='" + userID + "' ORDER BY followTime DESC LIMIT 5");
 			List<JSONObject> followingList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -326,8 +301,8 @@ public class Dao {
 			}
 			results.close();
 			returnObj.put("followingList", followingList);
-			results = sm.executeQuery("select * from follows where toUserID='"
-					+ userID + "' ORDER BY followTime DESC LIMIT 5");
+			results = sm.executeQuery(
+					"select * from follows where toUserID='" + userID + "' ORDER BY followTime DESC LIMIT 5");
 			List<JSONObject> followerList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -356,17 +331,14 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> getPopularUserList(int popularUserNumber)
-			throws SQLException {
+	public List<JSONObject> getPopularUserList(int popularUserNumber) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from user ORDER BY followerCount DESC LIMIT "
-							+ popularUserNumber);
+			results = sm.executeQuery("select * from user ORDER BY followerCount DESC LIMIT " + popularUserNumber);
 			List<JSONObject> popularUserList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -394,8 +366,7 @@ public class Dao {
 		return null;
 	}
 
-	public boolean modifyPassword(User user, String oldPassword,
-			String newPassword) throws SQLException {
+	public boolean modifyPassword(User user, String oldPassword, String newPassword) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -403,15 +374,12 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select password from user where userID='"
-							+ userID + "'");
+			results = sm.executeQuery("select password from user where userID='" + userID + "'");
 			if (results.next()) {
 				String password = results.getString("password");
 				if (password.equals(oldPassword)) {
 					results.close();
-					sm.executeUpdate("UPDATE user SET password='" + newPassword
-							+ "' WHERE userID=" + userID);
+					sm.executeUpdate("UPDATE user SET password='" + newPassword + "' WHERE userID=" + userID);
 					return true;
 				} else {
 					return false;
@@ -442,8 +410,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("UPDATE user SET motto='" + newMotto
-					+ "' WHERE userID=" + userID);
+			sm.executeUpdate("UPDATE user SET motto='" + newMotto + "' WHERE userID=" + userID);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -462,8 +429,7 @@ public class Dao {
 		return false;
 	}
 
-	public boolean modifyAvatarPath(User user, String newAvatarPath)
-			throws SQLException {
+	public boolean modifyAvatarPath(User user, String newAvatarPath) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -471,8 +437,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("UPDATE user SET avatarPath='" + newAvatarPath
-					+ "' WHERE userID=" + userID);
+			sm.executeUpdate("UPDATE user SET avatarPath='" + newAvatarPath + "' WHERE userID=" + userID);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -491,8 +456,7 @@ public class Dao {
 		return false;
 	}
 
-	public int addMessage(User user, String receiverUsername, String content)
-			throws SQLException {
+	public int addMessage(User user, String receiverUsername, String content) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		PreparedStatement psm = null;
@@ -503,17 +467,12 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select userID from user where username='"
-							+ receiverUsername + "'");
+			results = sm.executeQuery("select userID from user where username='" + receiverUsername + "'");
 			if (results.next()) {
 				String toUserID = results.getString("userID");
 				results.close();
-				psm = con.prepareStatement(
-						"insert into messages(fromUserID, toUserID, content) values('"
-								+ fromUserID + "', '" + toUserID + "', '"
-								+ content + "')",
-						Statement.RETURN_GENERATED_KEYS);
+				psm = con.prepareStatement("insert into messages(fromUserID, toUserID, content) values('" + fromUserID
+						+ "', '" + toUserID + "', '" + content + "')", Statement.RETURN_GENERATED_KEYS);
 				psm.executeUpdate();
 				results = psm.getGeneratedKeys();
 				if (results.next()) {
@@ -540,8 +499,7 @@ public class Dao {
 		return -1;
 	}
 
-	public List<JSONObject> getAllMessagesToUser(User user, boolean isRead)
-			throws SQLException {
+	public List<JSONObject> getAllMessagesToUser(User user, boolean isRead) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -549,9 +507,8 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from messages where toUserID='"
-					+ toUserID + "' and isRead='" + (isRead ? 1 : 0)
-					+ "' ORDER BY sendTime DESC");
+			results = sm.executeQuery("select * from messages where toUserID='" + toUserID + "' and isRead='"
+					+ (isRead ? 1 : 0) + "' ORDER BY sendTime DESC");
 			List<JSONObject> messageList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -582,8 +539,7 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> getAllMessagesFromUser(User user)
-			throws SQLException {
+	public List<JSONObject> getAllMessagesFromUser(User user) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -591,9 +547,8 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from messages where fromUserID='"
-							+ fromUserID + "' ORDER BY sendTime DESC");
+			results = sm.executeQuery(
+					"select * from messages where fromUserID='" + fromUserID + "' ORDER BY sendTime DESC");
 			List<JSONObject> messageList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -624,8 +579,7 @@ public class Dao {
 		return null;
 	}
 
-	public JSONObject getMessageByID(User user, String messageID)
-			throws SQLException {
+	public JSONObject getMessageByID(User user, String messageID) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -634,12 +588,10 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("UPDATE messages SET isRead=1 WHERE toUserID='"
-					+ userID + "' and messageID='" + messageID + "'");
-			results = sm
-					.executeQuery("select * from messages where messageID='"
-							+ messageID + "' and (fromUserID='" + userID
-							+ "' or toUserID='" + userID + "')");
+			sm.executeUpdate(
+					"UPDATE messages SET isRead=1 WHERE toUserID='" + userID + "' and messageID='" + messageID + "'");
+			results = sm.executeQuery("select * from messages where messageID='" + messageID + "' and (fromUserID='"
+					+ userID + "' or toUserID='" + userID + "')");
 			if (results.next()) {
 				String fromUserID = results.getString("fromUserID");
 				User fromUser = getUserByID(fromUserID);
@@ -674,9 +626,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select count(*) from messages where toUserID='"
-							+ userID + "' and isRead='0'");
+			results = sm.executeQuery("select count(*) from messages where toUserID='" + userID + "' and isRead='0'");
 			if (results.next()) {
 				String count = results.getString("count(*)");
 				return count;
@@ -700,27 +650,26 @@ public class Dao {
 		return null;
 	}
 
-	public Question getQuestionByID(int questionID) throws SQLException {
+	public Course getCourseByID(int courseID) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from question where questionID='"
-							+ questionID + "'");
+			results = sm.executeQuery(
+					"select * from course INNER JOIN user on course.teacherID=user.userID where courseID='" + courseID
+							+ "'");
 			if (results.next()) {
-				Question question = new Question();
-				question.setQuestionID(Integer.parseInt(results
-						.getString("questionID")));
-				question.setUserID(Integer.parseInt(results.getString("userID")));
-				question.setUsername(getUserByID(results.getString("userID"))
-						.getUsername());
-				question.setTitle(results.getString("title"));
-				question.setContent(results.getString("content"));
-				question.setTime(results.getTimestamp("questionTime"));
-				return question;
+				Course course = new Course();
+				course.setCourseID(courseID);
+				course.setCourseSN(results.getString("courseSN"));
+				course.setCourseName(results.getString("courseName"));
+				course.setCourseCredit(Integer.parseInt(results.getString("courseCredit")));
+				course.setTeacherID(Integer.parseInt(results.getString("teacherID")));
+				course.setTeacherName(results.getString("username"));
+				course.setSection(Integer.parseInt(results.getString("sectionID")));
+				return course;
 			} else {
 				return null;
 			}
@@ -741,8 +690,7 @@ public class Dao {
 		return null;
 	}
 
-	public int addQuestion(User user, String title, String content)
-			throws SQLException {
+	public int addQuestion(User user, String title, String content) throws SQLException {
 		int userID = user.getUserID();
 		title = title.replace("'", "''");
 		content = content.replace("'", "''");
@@ -752,10 +700,8 @@ public class Dao {
 		int newQuestionID = 0;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
-			sm = con.prepareStatement(
-					"insert into question(userID, title, content) values('"
-							+ userID + "', '" + title + "', '" + content + "')",
-					Statement.RETURN_GENERATED_KEYS);
+			sm = con.prepareStatement("insert into question(userID, title, content) values('" + userID + "', '" + title
+					+ "', '" + content + "')", Statement.RETURN_GENERATED_KEYS);
 			sm.executeUpdate();
 			results = sm.getGeneratedKeys();
 			if (results.next()) {
@@ -786,9 +732,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from question where questionID='"
-							+ questionID + "'");
+			results = sm.executeQuery("select * from question where questionID='" + questionID + "'");
 			if (results.next()) {
 				return results.getString("title");
 			} else {
@@ -811,18 +755,15 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> getAnswer(int questionID, int startingIndex,
-			int numberOfAnswers) throws SQLException {
+	public List<JSONObject> getAnswer(int questionID, int startingIndex, int numberOfAnswers) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from answers where questionID='"
-							+ questionID + "' ORDER BY answerID ASC LIMIT "
-							+ startingIndex + "," + numberOfAnswers);
+			results = sm.executeQuery("select * from answers where questionID='" + questionID
+					+ "' ORDER BY answerID ASC LIMIT " + startingIndex + "," + numberOfAnswers);
 			List<JSONObject> answerList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -834,8 +775,7 @@ public class Dao {
 				obj.put("avatarPath", user.getAvatarPath());
 				obj.put("motto", user.getMotto());
 				obj.put("content", results.getString("content"));
-				obj.put("answerTime",
-						dateFormat.format(results.getTimestamp("answerTime")));
+				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("replyCount", results.getString("replyCount"));
 				answerList.add(obj);
 			}
@@ -857,8 +797,7 @@ public class Dao {
 		return null;
 	}
 
-	public JSONObject addAnswer(User user, int questionID, String content)
-			throws SQLException {
+	public JSONObject addAnswer(User user, int questionID, String content) throws SQLException {
 		Connection con = null;
 		PreparedStatement sm = null;
 		ResultSet results = null;
@@ -867,20 +806,16 @@ public class Dao {
 		int newAnswerID = 0;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
-			sm = con.prepareStatement(
-					"insert into answers(questionID, userID, content) values('"
-							+ questionID + "', '" + userID + "', '" + content
-							+ "')", Statement.RETURN_GENERATED_KEYS);
+			sm = con.prepareStatement("insert into answers(questionID, userID, content) values('" + questionID + "', '"
+					+ userID + "', '" + content + "')", Statement.RETURN_GENERATED_KEYS);
 			sm.executeUpdate();
 			results = sm.getGeneratedKeys();
 			if (results.next()) {
 				newAnswerID = results.getInt(1);
 			}
 			results.close();
-			sm.executeUpdate("UPDATE question SET answerCount=answerCount+1 WHERE questionID='"
-					+ questionID + "'");
-			results = sm.executeQuery("select * from answers where answerID='"
-					+ newAnswerID + "'");
+			sm.executeUpdate("UPDATE question SET answerCount=answerCount+1 WHERE questionID='" + questionID + "'");
+			results = sm.executeQuery("select * from answers where answerID='" + newAnswerID + "'");
 			if (results.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("answerID", newAnswerID);
@@ -889,8 +824,7 @@ public class Dao {
 				obj.put("avatarPath", user.getAvatarPath());
 				obj.put("motto", user.getMotto());
 				obj.put("content", results.getString("content"));
-				obj.put("answerTime",
-						dateFormat.format(results.getTimestamp("answerTime")));
+				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("replyCount", results.getString("replyCount"));
 				return obj;
 			}
@@ -918,8 +852,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from replies where answerID='"
-					+ answerID + "' ORDER BY replyID DESC");
+			results = sm.executeQuery("select * from replies where answerID='" + answerID + "' ORDER BY replyID DESC");
 			List<JSONObject> replyList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
@@ -929,8 +862,7 @@ public class Dao {
 				obj.put("username", user.getUsername());
 				obj.put("avatarPath", user.getAvatarPath());
 				obj.put("content", results.getString("content"));
-				obj.put("replyTime",
-						dateFormat.format(results.getTimestamp("replyTime")));
+				obj.put("replyTime", dateFormat.format(results.getTimestamp("replyTime")));
 				replyList.add(obj);
 			}
 			return replyList;
@@ -951,8 +883,7 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> addReply(User user, int answerID, String content)
-			throws SQLException {
+	public List<JSONObject> addReply(User user, int answerID, String content) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -961,10 +892,9 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			sm.executeUpdate("insert into replies(answerID, userID, content) values('"
-					+ answerID + "', '" + userID + "', '" + content + "')");
-			sm.executeUpdate("UPDATE answers SET replyCount=replyCount+1 WHERE answerID='"
-					+ answerID + "'");
+			sm.executeUpdate("insert into replies(answerID, userID, content) values('" + answerID + "', '" + userID
+					+ "', '" + content + "')");
+			sm.executeUpdate("UPDATE answers SET replyCount=replyCount+1 WHERE answerID='" + answerID + "'");
 			return getReply(answerID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -983,27 +913,23 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> getAnswerListByUserID(int userID)
-			throws SQLException {
+	public List<JSONObject> getAnswerListByUserID(int userID) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from answers where userID='"
-					+ userID + "' ORDER BY answerID DESC");
+			results = sm.executeQuery("select * from answers where userID='" + userID + "' ORDER BY answerID DESC");
 			List<JSONObject> answerList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				String questionID = results.getString("questionID");
-				Question question = getQuestionByID(Integer
-						.parseInt(questionID));
+				Course question = getCourseByID(Integer.parseInt(questionID));
 				obj.put("questionID", questionID);
-				obj.put("questionTitle", question.getTitle());
+				obj.put("questionTitle", question.getCourseName());
 				obj.put("content", results.getString("content"));
-				obj.put("answerTime",
-						dateFormat.format(results.getTimestamp("answerTime")));
+				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				answerList.add(obj);
 			}
 			return answerList;
@@ -1024,25 +950,22 @@ public class Dao {
 		return null;
 	}
 
-	public List<Question> getQuestionListByUserID(int userID)
-			throws SQLException {
+	public List<Course> getCourseListByTeacherID(int userID) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from question where userID='"
-					+ userID + "' ORDER BY questionID DESC");
-			List<Question> questionList = new LinkedList<Question>();
+			results = sm.executeQuery("select * from course where teacherID='" + userID + "' ORDER BY courseID DESC");
+			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
-				Question question = new Question();
-				question.setQuestionID(Integer.parseInt(results
-						.getString("questionID")));
-				question.setTitle(results.getString("title"));
-				questionList.add(question);
+				Course course = new Course();
+				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseName(results.getString("courseName"));
+				courseList.add(course);
 			}
-			return questionList;
+			return courseList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1060,8 +983,7 @@ public class Dao {
 		return null;
 	}
 
-	public List<Question> getPopularQuestionList(int numberOfPopularQuestions)
-			throws SQLException {
+	public List<Course> getPopularCourseList(int numberOfPopularCourses) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -1069,17 +991,15 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			results = sm
-					.executeQuery("select * from question ORDER BY answerCount DESC LIMIT "
-							+ numberOfPopularQuestions);
-			List<Question> questionList = new LinkedList<Question>();
+					.executeQuery("select * from course ORDER BY commentCount DESC LIMIT " + numberOfPopularCourses);
+			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
-				Question question = new Question();
-				question.setQuestionID(Integer.parseInt(results
-						.getString("questionID")));
-				question.setTitle(results.getString("title"));
-				questionList.add(question);
+				Course course = new Course();
+				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseName(results.getString("courseName"));
+				courseList.add(course);
 			}
-			return questionList;
+			return courseList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1097,26 +1017,23 @@ public class Dao {
 		return null;
 	}
 
-	public List<Question> searchQuestionByKeyword(String keyword)
-			throws SQLException {
+	public List<Course> searchCourseByKeyword(String keyword) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from question where title like '%"
-							+ keyword + "%' ORDER BY answerCount DESC");
-			List<Question> questionList = new LinkedList<Question>();
+			results = sm.executeQuery(
+					"select * from course where courseName like '%" + keyword + "%' ORDER BY commentCount DESC");
+			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
-				Question question = new Question();
-				question.setQuestionID(Integer.parseInt(results
-						.getString("questionID")));
-				question.setTitle(results.getString("title"));
-				questionList.add(question);
+				Course course = new Course();
+				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseName(results.getString("courseName"));
+				courseList.add(course);
 			}
-			return questionList;
+			return courseList;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1134,17 +1051,15 @@ public class Dao {
 		return null;
 	}
 
-	public List<User> searchUsernameByKeyword(String keyword)
-			throws SQLException {
+	public List<User> searchUsernameByKeyword(String keyword) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from user where username like '%"
-							+ keyword + "%' ORDER BY followerCount DESC");
+			results = sm.executeQuery(
+					"select * from user where username like '%" + keyword + "%' ORDER BY followerCount DESC");
 			List<User> userList = new LinkedList<User>();
 			while (results.next()) {
 				User user = new User();
@@ -1172,8 +1087,7 @@ public class Dao {
 		return null;
 	}
 
-	public List<JSONObject> getTrendEntryListForUser(User user)
-			throws SQLException {
+	public List<JSONObject> getTrendEntryListForUser(User user) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
@@ -1183,16 +1097,13 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from follows where fromUserID='"
-							+ userID + "'");
+			results = sm.executeQuery("select * from follows where fromUserID='" + userID + "'");
 			while (results.next()) {
 				toUserIDString += results.getString("toUserID") + ",";
 			}
 			results.close();
 			toUserIDString += "0)";
-			results = sm.executeQuery("select * from question where userID in "
-					+ toUserIDString);
+			results = sm.executeQuery("select * from question where userID in " + toUserIDString);
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				String toUserID = results.getString("userID");
@@ -1203,13 +1114,11 @@ public class Dao {
 				obj.put("username", toUser.getUsername());
 				obj.put("questionID", results.getString("questionID"));
 				obj.put("questionTitle", results.getString("title"));
-				obj.put("time",
-						dateFormat.format(results.getTimestamp("questionTime")));
+				obj.put("time", dateFormat.format(results.getTimestamp("questionTime")));
 				trendEntryList.add(obj);
 			}
 			results.close();
-			results = sm.executeQuery("select * from answers where userID in "
-					+ toUserIDString);
+			results = sm.executeQuery("select * from answers where userID in " + toUserIDString);
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				String toUserID = results.getString("userID");
@@ -1220,10 +1129,8 @@ public class Dao {
 				obj.put("username", toUser.getUsername());
 				String questionID = results.getString("questionID");
 				obj.put("questionID", questionID);
-				obj.put("questionTitle",
-						getQuestionTitleByID(Integer.parseInt(questionID)));
-				obj.put("time",
-						dateFormat.format(results.getTimestamp("answerTime")));
+				obj.put("questionTitle", getQuestionTitleByID(Integer.parseInt(questionID)));
+				obj.put("time", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("content", results.getString("content"));
 				trendEntryList.add(obj);
 			}
@@ -1255,17 +1162,14 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from question ORDER BY questionTime");
+			results = sm.executeQuery("select * from question ORDER BY questionTime");
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("time",
-						dateFormat.format(results.getTimestamp("questionTime")));
+				obj.put("time", dateFormat.format(results.getTimestamp("questionTime")));
 				obj.put("questionTitle", results.getString("title"));
 				String questionID = results.getString("questionID");
 				obj.put("questionID", questionID);
-				JSONObject latestAnswer = getLatestAnswerforQuestion(Integer
-						.parseInt(questionID));
+				JSONObject latestAnswer = getLatestAnswerforQuestion(Integer.parseInt(questionID));
 				if (latestAnswer == null) {
 					obj.put("hasAnswer", "0");
 					String userID = results.getString("userID");
@@ -1302,17 +1206,15 @@ public class Dao {
 		return null;
 	}
 
-	public JSONObject getLatestAnswerforQuestion(int questionID)
-			throws SQLException {
+	public JSONObject getLatestAnswerforQuestion(int questionID) throws SQLException {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm
-					.executeQuery("select * from answers where questionID='"
-							+ questionID + "' ORDER BY answerTime DESC LIMIT 1");
+			results = sm.executeQuery(
+					"select * from answers where questionID='" + questionID + "' ORDER BY answerTime DESC LIMIT 1");
 			if (results.next()) {
 				JSONObject obj = new JSONObject();
 				String userID = results.getString("userID");
@@ -1320,8 +1222,7 @@ public class Dao {
 				User user = getUserByID(userID);
 				obj.put("avatarPath", user.getAvatarPath());
 				obj.put("username", user.getUsername());
-				obj.put("time",
-						dateFormat.format(results.getTimestamp("answerTime")));
+				obj.put("time", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("content", results.getString("content"));
 				return obj;
 			} else {

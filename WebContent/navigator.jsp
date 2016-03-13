@@ -36,9 +36,6 @@
 				<a href="index.jsp">首页</a>
 			</div>
 			<div class="changeHoverBackground clickbox">
-				<a href="#">话题</a>
-			</div>
-			<div class="changeHoverBackground clickbox">
 				<a href="discovery.jsp">发现</a>
 			</div>
 		</div>
@@ -116,5 +113,5 @@
 		</div>
 	</div>
 </div>
-<script src="lib/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-2.2.1.min.js"></script>
 <script type="text/javascript" src="js/navigator.js"></script>

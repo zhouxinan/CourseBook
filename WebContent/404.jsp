@@ -14,7 +14,7 @@
 			<div id="leftColumn">
 				<div class="columnDiv">你所访问的页面不存在！</div>
 			</div>
-			<jsp:include page="popularQuestionAndUser.jsp" />
+			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
 </body>

@@ -10,13 +10,13 @@
 		return;
 	}
 	Dao dao = Dao.getInstance();
-	List<Question> popularQuestionList = dao.getPopularQuestionList(5);
+	List<Course> popularCourseList = dao.getPopularCourseList(5);
 %>
 <html>
 <head>
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/login.css" />
-<script src="lib/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,8 +57,7 @@
 				</div>
 				<div id="errorMessage">
 					<%
-						if (request.getSession() != null
-								&& (String) request.getSession().getAttribute("error") != null) {
+						if (request.getSession() != null && (String) request.getSession().getAttribute("error") != null) {
 							out.print(request.getSession().getAttribute("error"));
 							request.getSession().removeAttribute("error");
 						}
@@ -82,10 +81,10 @@
 				<div class="contentTitle">热门课程</div>
 				<div id="popularQuestionList">
 					<%
-						for (Question question : popularQuestionList) {
+						for (Course course : popularCourseList) {
 					%>
 					<div>
-						<a href="question.jsp?id=<%=question.getQuestionID()%>"><%=question.getTitle()%></a>
+						<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
 					</div>
 					<%
 						}

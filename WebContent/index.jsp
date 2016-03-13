@@ -75,7 +75,7 @@
 					}
 				%>
 			</div>
-			<jsp:include page="popularQuestionAndUser.jsp" />
+			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
 </body>

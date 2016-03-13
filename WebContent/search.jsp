@@ -6,7 +6,7 @@
 <%
 	String keyword = request.getParameter("keyword");
 	Dao dao = Dao.getInstance();
-	List<Question> questionList = dao.searchQuestionByKeyword(keyword);
+	List<Course> courseList = dao.searchCourseByKeyword(keyword);
 	List<User> userList = dao.searchUsernameByKeyword(keyword);
 %>
 <html>
@@ -24,22 +24,22 @@
 		<div id="contentWrapper">
 			<div id="leftColumn">
 				<div id="tabBar" class="columnDiv">
-					<div class="tab active">问题</div>
+					<div class="tab active">课程</div>
 					<div class="tab">用户</div>
 				</div>
 				<div>
 					<div class="tabPane active">
 						<%
-							if (questionList.size() == 0) {
+							if (courseList.size() == 0) {
 						%>
-						<div class="columnDiv">没有找到符合条件的问题。</div>
+						<div class="columnDiv">没有找到符合条件的课程。</div>
 						<%
 							} else {
-								for (Question question : questionList) {
+								for (Course course : courseList) {
 						%>
 						<div class="columnDiv">
 							<div class="questionTitleDiv">
-								<a href="question.jsp?id=<%=question.getQuestionID()%>"><%=question.getTitle()%></a>
+								<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
 							</div>
 						</div>
 						<%
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</div>
-			<jsp:include page="popularQuestionAndUser.jsp" />
+			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
 	<script type="text/javascript" src="js/search.js"></script>

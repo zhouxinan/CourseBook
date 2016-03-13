@@ -7,20 +7,21 @@
 <%
 	Dao dao = Dao.getInstance();
 	List<JSONObject> popularUserList = dao.getPopularUserList(3);
-	List<Question> popularQuestionList = dao.getPopularQuestionList(5);
+	List<Course> popularCourseList = dao.getPopularCourseList(5);
 %>
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
-<link type="text/css" rel="stylesheet" href="css/popularQuestionAndUser.css" />
+<link type="text/css" rel="stylesheet"
+	href="css/popularQuestionAndUser.css" />
 <div id="rightColumn">
 	<div class="columnDiv">
-		<div class="rightColumnTitle">热门问题</div>
+		<div class="rightColumnTitle">热门课程</div>
 		<div id="popularQuestionList">
 			<%
-				for (Question question : popularQuestionList) {
+				for (Course course : popularCourseList) {
 			%>
 			<div>
-				<a href="question.jsp?id=<%=question.getQuestionID()%>"><%=question.getTitle()%></a>
+				<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
 			</div>
 			<%
 				}
