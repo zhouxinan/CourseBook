@@ -20,14 +20,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>识乎 - 提高自己的知识水平</title>
+<title>课谱 - 靠谱的选课指导站</title>
 </head>
 <body>
 	<div id="top">
 		<div id="topWrapper">
 			<div id="logoDiv">
-				<div id="title">识乎</div>
-				<div>提高自己的知识水平</div>
+				<div id="title">课谱</div>
+				<div>靠谱的选课指导站</div>
 			</div>
 			<div id="loginAndRegDiv" class="noSelect">
 				<div id="switchFormController">
@@ -79,7 +79,7 @@
 				<div class="clear"></div>
 			</div>
 			<div id="popularQuestionDiv">
-				<div class="contentTitle">热门问题</div>
+				<div class="contentTitle">热门课程</div>
 				<div id="popularQuestionList">
 					<%
 						for (Question question : popularQuestionList) {

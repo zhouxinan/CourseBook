@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
-<title>识乎 - 404</title>
+<title>课谱 - 404</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />

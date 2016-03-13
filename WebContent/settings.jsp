@@ -19,7 +19,7 @@
 <link type="text/css" rel="stylesheet" href="css/settings.css" />
 <script src="lib/jquery-2.1.3.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>识乎 - 设置</title>
+<title>课谱 - 设置</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />

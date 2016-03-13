@@ -16,7 +16,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
 <link type="text/css" rel="stylesheet" href="css/search.css" />
-<title>识乎 - 搜索</title>
+<title>课谱 - 搜索</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />

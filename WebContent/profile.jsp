@@ -40,7 +40,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>识乎 - 个人资料</title>
+<title>课谱 - 个人资料</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />
@@ -138,7 +138,7 @@
 					<div class="clear"></div>
 				</div>
 				<div class="columnDiv">
-					<div id="author">© 2015 Zhou Xinan</div>
+					<div id="author">© 2016 课谱</div>
 				</div>
 			</div>
 			<div class="clear"></div>

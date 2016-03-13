@@ -49,6 +49,6 @@
 		</div>
 	</div>
 	<div class="columnDiv">
-		<div id="author">© 2015 Zhou Xinan</div>
+		<div id="author">© 2016 课谱</div>
 	</div>
 </div>

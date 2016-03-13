@@ -33,7 +33,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>识乎 - 提问</title>
+<title>课谱 - 提问</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />

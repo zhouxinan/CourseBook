@@ -20,7 +20,7 @@
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
-<title>识乎 - 主页</title>
+<title>课谱 - 靠谱的选课指导站</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />

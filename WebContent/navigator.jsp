@@ -16,7 +16,7 @@
 <div id="navigator">
 	<div id="navigatorWrapper">
 		<div id="logo">
-			<a href="index.jsp">识乎</a>
+			<a href="index.jsp">课谱</a>
 		</div>
 		<div id="searchDiv">
 			<input type="text" id="searchInput" placeholder="搜索问题或用户" />
