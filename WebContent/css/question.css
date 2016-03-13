@@ -1,0 +1,139 @@
+#questionTitle {
+	font-size: 1.5em;
+}
+
+#questionMetadata {
+	color: #7f8c8d;
+	line-height: 30px;
+	font-size: 13px;
+}
+
+#questionMetadata>span {
+	margin-right: 5px;
+}
+
+.userSignature {
+	width: 70%;
+	color: #7f8c8d;
+}
+
+.userInfoDiv {
+	height: 40px;
+	font-size: 15px;
+}
+
+.userInfoDiv span {
+	line-height: 30px;
+}
+
+.answerMetadata {
+	float: right;
+	color: #7f8c8d;
+	height: 20px;
+	font-size: 13px;
+}
+
+.answerMetadata>div {
+	float: left;
+	margin-left: 5px;
+}
+
+.replyCountDiv:hover {
+	cursor: pointer;
+}
+
+.replyDiv {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.standardButton {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	float: right;
+}
+
+#uploadImgButton {
+	float: left;
+}
+
+.replyListDiv {
+	position: relative;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	width: 90%;
+	float: right;
+	padding: 5px;
+	margin-bottom: 5px;
+	display: none;
+	margin-top: 5px;
+}
+
+.replyListDiv::before, .replyListDiv::after {
+	content: "";
+	position: absolute;
+	right: 0.5ex;
+	border-width: 5px;
+	border-style: dashed dashed solid dashed;
+}
+
+.replyListDiv::before {
+	top: -10px;
+	border-color: transparent transparent #ccc transparent;
+}
+
+.replyListDiv::after {
+	top: -8px;
+	border-color: transparent transparent white transparent;
+}
+
+.replyListDiv.active {
+	display: block;
+}
+
+.replyData {
+	float: left;
+}
+
+.replyDiv.new {
+	border-bottom: 0px;
+}
+
+.answer {
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+.answer img {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#getMoreAnswersButton {
+	width: 100%;
+	background-color: white;
+	color: #1abc9c;
+	border: 1px solid #1abc9c;
+	border-radius: 3px;
+}
+
+#getMoreAnswersButton:hover {
+	color: #2ecc71;
+	border: 1px solid #2ecc71;
+}
+
+.errorMessageDiv {
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	color: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+	#rightColumn, #leftColumn {
+		position: relative;
+		float: left;
+		width: 100%;
+	}
+}

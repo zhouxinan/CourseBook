@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.trendEntry {
+	margin-left: 35px;
+}
+
+.trendEntry>div+div {
+	margin-top: 5px;
+}
+
+.answerContent {
+	font-size: 15px;
+}
+
+.questionDiv {
+	color: #7f8c8d;
+}

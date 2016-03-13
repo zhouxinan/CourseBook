@@ -1,0 +1,72 @@
+#myBigAvatar {
+	width: 100%;
+	height: auto;
+}
+
+#myBigAvatarDiv {
+	width: 100%;
+	
+}
+
+.myInfoRowDiv {
+	width: 100%;
+	line-height: 30px;
+	float: left;
+}
+
+.myInfoRowDiv > div {
+	float: left;
+	width: 220px;
+}
+
+.myInfoRowDiv img {
+	margin: 5px;
+	float: left;
+}
+
+.bigNumber {
+	font-size: 30px;
+	color: #16a085;
+}
+
+.followerDivText {
+	font-size: 12px;
+}
+
+#followerDiv {
+	height: 50px;
+}
+
+#followerDiv > div {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+.columnDiv > div {
+	line-height: 30px;
+}
+
+#userIDDiv {
+	display: none;
+}
+
+#followButton {
+	width: 100%;
+	color: #1abc9c;
+	background-color: white;
+	border: 1px solid #1abc9c;
+}
+
+@media screen and (max-width: 600px) {
+    #rightColumn, #leftColumn {
+    	position: relative;
+    	float: left;
+    	width: 100%;
+    }
+    
+    .myInfoRowDiv > div {
+    	width: 80%;
+    }
+    
+}

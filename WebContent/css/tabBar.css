@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+.tab {
+	color: #16a085;
+	float: left;
+	padding: 0 10px;
+	text-align: center;
+	margin-right: 2px;
+	line-height: 30px;
+}
+
+.tab:hover {
+	background-color: #1abc9c;
+	color: white;
+	cursor: pointer;
+}
+
+.tab.active {
+	background-color: #16a085;
+	color: white;
+}
+
+.tabPane {
+    display: none;
+}
+
+.tabPane.active {
+    display: block;
+}

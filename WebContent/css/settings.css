@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+#contentWrapper>div {
+	float: left;
+	width: 100%;
+}
+
+.tabPane .columnDiv>div {
+	margin-bottom: 10px;
+}
+
+#setAvatarDiv {
+	text-align: center;
+}
+
+#oldAvatarDiv, #newAvatarDiv {
+	width: 50%;
+	float: left;
+}
+
+.avatarDivWrapper {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.avatarDivWrapper>div {
+	margin-bottom: 10px;
+}
+
+#oldAvatarContainer {
+	width: 300px;
+	height: 300px;
+}
+
+#setPasswordDiv input {
+	width: 200px;
+}
+
+#setPasswordDiv label {
+	margin-right: 50px;
+}
+
+#selectImgButton {
+	float: left;
+}
+
+#saveAvatarButton {
+	float: right;
+}
+
+#view {
+	height: 300px;
+	width: 300px;
+	border: 2px dashed #ccc;
+}

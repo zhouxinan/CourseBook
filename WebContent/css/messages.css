@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+#newMessage, #sendMessageButton {
+	float: right;
+}
+
+#contentWrapper>div {
+	float: left;
+	width: 100%;
+}
+
+#receiverUsername, #messageContent {
+	margin-bottom: 10px;
+}
+
+#sendMessageErrorMessageDiv {
+	float: left;
+}
+
+.singleMessagePreviewDiv {
+	float: left;
+	width: 70%;
+	cursor: pointer;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.columnDiv {
+	line-height: 30px;
+}
+
+.userWrapper {
+	float: left;
+	width: 30%;
+}

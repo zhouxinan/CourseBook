@@ -1,0 +1,85 @@
+/*This CSS file is linked to any page of the site which is to use the two-column layout.*/
+
+#content {
+	padding-top: 90px;
+	width: 100%;
+}
+
+#contentWrapper {
+	position: relative;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#leftColumn {
+	margin-right: 300px;
+}
+
+#leftColumn > div {
+	float: left;
+	width: 100%;
+}
+
+#rightColumn {
+	position: absolute;
+	right: 0px;
+	width: 250px;
+}
+
+.userAvatar {
+	float: left;
+	height: 30px;
+	width: 30px;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+
+.userName {
+	font-weight: bold;
+}
+
+.columnDiv {
+	border-bottom: 1px solid #eee;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: 100%;
+}
+
+.columnDiv img {
+	max-width: 100%;
+}
+
+.columnDiv:last-child {
+	border-bottom: 0px;
+}
+
+#author {
+	text-align: center;
+	color: #bdc3c7;
+	font-size: 12px;
+}
+
+.rightColumnTitle {
+	font-size: 18px;
+}
+
+.replyTime {
+	color: #bdc3c7;
+	font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+	#contentWrapper {
+		width: 90%;
+	}
+	#content {
+		padding-top: 190px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	#content {
+		padding-top: 140px;
+	}
+}

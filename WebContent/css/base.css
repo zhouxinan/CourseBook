@@ -1,0 +1,196 @@
+/*This CSS file is linked to any page of the site, since it sets basic styles of the site.*/
+body {
+	margin: 0px;
+}
+
+* {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Don't allow mis-selections caused by clicking too fast on elements in the login/register area, or the UI will look silly.  */
+.noSelect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+input, textarea {
+	outline: none;
+}
+
+a {
+	color: #16a085;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #1abc9c;
+}
+
+a:active {
+	color: #2ecc71;
+}
+
+button {
+	border: 0px;
+	height: 30px;
+	cursor: pointer;
+	outline: none;
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+}
+
+.clear {
+	clear: both;
+}
+
+.hidden {
+	display: none;
+}
+
+.standardButton {
+	background: #2ecc71;
+	background-color: #2ecc71;
+	background-image: -moz-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -ms-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2ecc71),
+		to(#1abc9c));
+	background-image: -webkit-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -o-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: linear-gradient(top, #2ecc71, #1abc9c);
+	border: 1px solid #24aa6c;
+	color: #fff !important;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, .2) inset, 0 1px 0
+		rgba(0, 0, 0, .2);
+	font-size: 14px;
+	text-align: center;
+	padding: 4px 10px;
+	cursor: pointer;
+	border-radius: 3px;
+	line-height: normal;
+}
+
+.standardButton:active {
+	opacity: 0.7;
+}
+
+.standardInput {
+	padding: 8px 10px;
+	font-size: 13px;
+	line-height: 15px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .1) inset;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #222;
+	width: 100%;
+}
+
+.standardInput:focus {
+	border-color: #2ecc71;
+}
+
+textarea {
+	padding: 8px 10px;
+	font-size: 13px;
+	line-height: 15px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .1) inset;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #222;
+	width: 100%;
+	height: 20%;
+	margin-bottom: 5px;
+	overflow-y: auto;
+}
+
+textarea:focus {
+	border-color: #2ecc71;
+}
+
+.modalDialogBackground {
+	opacity: 0.5;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 95;
+	min-height: 100%;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	background: #666;
+}
+
+.modalWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 99;
+	overflow: auto;
+}
+
+.modalDialog {
+	width: 550px;
+	margin: auto;
+	margin-top: 14vh;
+	z-index: 99;
+	max-width: 100%;
+	border-radius: 8px;
+	border: 1px solid #888;
+	box-shadow: 0 0 80px 0 rgba(0, 0, 0, .4);
+	background: #fff;
+}
+
+.modalDialogTitle {
+	position: relative;
+	background-color: #2ecc71;
+	background-image: -moz-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -ms-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2ecc71),
+		to(#1abc9c));
+	background-image: -webkit-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: -o-linear-gradient(top, #2ecc71, #1abc9c);
+	background-image: linear-gradient(top, #2ecc71, #1abc9c);
+	padding: 10px 15px;
+	border-radius: 6px 6px 0 0;
+	border: 1px solid #16a085;
+	margin: -1px -1px 0;
+	line-height: 14px;
+}
+
+.modalDialogTitleText {
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+	font-size: 15px;
+}
+
+.modalDialogTitleClose {
+	position: absolute;
+	top: 50%;
+	right: 3px;
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	cursor: pointer;
+	background-position: -60px -53px;
+	background-image: url(../img/icon/sprites-1.9.2@2x.png);
+	background-size: 308px 250px;
+}
+
+.modalDialogContent {
+	padding: 0 15px;
+	margin: 17px 0;
+}
+
+.modalDialogContent>div {
+	margin-top: 18px;
+}
