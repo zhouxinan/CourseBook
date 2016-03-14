@@ -6,31 +6,8 @@ public class User {
 	private String email;
 	private String avatarPath;
 	private String motto;
-	private boolean enabled;
-
-	public String getMotto() {
-		return motto;
-	}
-
-	public void setMotto(String motto) {
-		this.motto = motto;
-	}
-
-	public String getAvatarPath() {
-		return avatarPath;
-	}
-
-	public void setAvatarPath(String avatarPath) {
-		this.avatarPath = avatarPath;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	private int type;
+	private boolean disabled;
 
 	public int getUserID() {
 		return userID;
@@ -48,12 +25,44 @@ public class User {
 		this.username = username;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAvatarPath() {
+		return avatarPath;
+	}
+
+	public void setAvatarPath(String avatarPath) {
+		this.avatarPath = avatarPath;
+	}
+
+	public String getMotto() {
+		return motto;
+	}
+
+	public void setMotto(String motto) {
+		this.motto = motto;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 
 }

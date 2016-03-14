@@ -90,17 +90,7 @@ public class QuestionServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
-		if (action.equals("addQuestion")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			try {
-				int newQuestionID = dao.addQuestion(user, title, content);
-				response.sendRedirect("course.jsp?id=" + newQuestionID);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else if (action.equals("addReply")) {
+		if (action.equals("addReply")) {
 			String answerID = request.getParameter("answerID");
 			String content = request.getParameter("content");
 			try {

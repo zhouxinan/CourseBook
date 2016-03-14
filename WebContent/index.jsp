@@ -11,8 +11,7 @@
 		return;
 	}
 	Dao dao = Dao.getInstance();
-	List<JSONObject> trendEntryList = dao
-			.getTrendEntryListForUser(user);
+	List<JSONObject> trendEntryList = dao.getTrendEntryListForUser(user);
 %>
 <html>
 <head>
@@ -38,7 +37,7 @@
 					for (JSONObject obj : trendEntryList) {
 				%>
 				<div class="columnDiv">
-					<%
+					<%-- <%
 						if (obj.get("isQuestion").equals("1")) {
 					%>
 					<div>
@@ -48,13 +47,13 @@
 					<div class="trendEntry">
 						<div class="questionDiv">
 							<a href="profile.jsp?id=<%=obj.get("userID")%>" class="userName"><%=obj.get("username")%></a>
-							提问了 <a href="question.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+							提问了 <a href="course.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
 						</div>
 						<div class="replyTime"><%=obj.get("time")%></div>
 					</div>
 					<%
 						} else {
-					%>
+					%> --%>
 					<div>
 						<a href="profile.jsp?id=<%=obj.get("userID")%>"><img
 							src="img/avatar/<%=obj.get("avatarPath")%>" class="userAvatar" /></a>
@@ -62,14 +61,14 @@
 					<div class="trendEntry">
 						<div class="questionDiv">
 							<a href="profile.jsp?id=<%=obj.get("userID")%>" class="userName"><%=obj.get("username")%></a>
-							回答了 <a href="question.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+							评价了 <a href="course.jsp?id=<%=obj.get("courseID")%>"><%=obj.get("courseSN") + " " + obj.get("courseName") + "（" + obj.get("teacherName") + "）"%></a>
 						</div>
 						<div class="answerContent"><%=obj.get("content")%></div>
 						<div class="replyTime"><%=obj.get("time")%></div>
 					</div>
-					<%
+					<%-- <%
 						}
-					%>
+					%> --%>
 				</div>
 				<%
 					}
