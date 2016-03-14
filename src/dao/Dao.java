@@ -21,7 +21,7 @@ import utility.MyComparator;
 
 public class Dao {
 	private static String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://127.0.0.1:3306/CourseBook?useUnicode=true&characterEncoding=UTF-8";
+	String url = "jdbc:mysql://127.0.0.1:3306/CourseBook?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E");
 
 	// your username and password
@@ -668,7 +668,6 @@ public class Dao {
 				course.setCourseCredit(Integer.parseInt(results.getString("courseCredit")));
 				course.setTeacherID(Integer.parseInt(results.getString("teacherID")));
 				course.setTeacherName(results.getString("username"));
-				course.setSection(Integer.parseInt(results.getString("sectionID")));
 				return course;
 			} else {
 				return null;
@@ -762,7 +761,7 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from answers where questionID='" + questionID
+			results = sm.executeQuery("select * from answers where courseID='" + questionID
 					+ "' ORDER BY answerID ASC LIMIT " + startingIndex + "," + numberOfAnswers);
 			List<JSONObject> answerList = new LinkedList<JSONObject>();
 			while (results.next()) {
@@ -806,7 +805,7 @@ public class Dao {
 		int newAnswerID = 0;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
-			sm = con.prepareStatement("insert into answers(questionID, userID, content) values('" + questionID + "', '"
+			sm = con.prepareStatement("insert into answers(courseID, userID, content) values('" + questionID + "', '"
 					+ userID + "', '" + content + "')", Statement.RETURN_GENERATED_KEYS);
 			sm.executeUpdate();
 			results = sm.getGeneratedKeys();
@@ -920,14 +919,16 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from answers where userID='" + userID + "' ORDER BY answerID DESC");
+			results = sm.executeQuery(
+					"select * from answers natural join course inner join user on course.teacherID=user.userID where answers.userID='"
+							+ userID + "' ORDER BY answerID DESC");
 			List<JSONObject> answerList = new LinkedList<JSONObject>();
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
-				String questionID = results.getString("questionID");
-				Course question = getCourseByID(Integer.parseInt(questionID));
-				obj.put("questionID", questionID);
-				obj.put("questionTitle", question.getCourseName());
+				obj.put("courseID", results.getString("courseID"));
+				obj.put("courseName", results.getString("courseName"));
+				obj.put("courseSN", results.getString("courseSN"));
+				obj.put("teacherName", results.getString("userName"));
 				obj.put("content", results.getString("content"));
 				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				answerList.add(obj);
@@ -957,12 +958,16 @@ public class Dao {
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
-			results = sm.executeQuery("select * from course where teacherID='" + userID + "' ORDER BY courseID DESC");
+			results = sm.executeQuery(
+					"select * from course inner join user on course.teacherID = user.userID where teacherID='" + userID
+							+ "' ORDER BY courseID DESC");
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
 				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
+				course.setTeacherName(results.getString("username"));
 				courseList.add(course);
 			}
 			return courseList;
@@ -1119,9 +1124,8 @@ public class Dao {
 				User toUser = getUserByID(toUserID);
 				obj.put("avatarPath", toUser.getAvatarPath());
 				obj.put("username", toUser.getUsername());
-				obj.put("questionID", results.getString("questionID"));
-				obj.put("questionTitle", results.getString("title"));
-				obj.put("time", dateFormat.format(results.getTimestamp("questionTime")));
+				obj.put("questionID", results.getString("courseID"));
+				obj.put("questionTitle", results.getString("courseName"));
 				trendEntryList.add(obj);
 			}
 			results.close();
@@ -1134,10 +1138,9 @@ public class Dao {
 				User toUser = getUserByID(toUserID);
 				obj.put("avatarPath", toUser.getAvatarPath());
 				obj.put("username", toUser.getUsername());
-				String questionID = results.getString("questionID");
+				String questionID = results.getString("courseID");
 				obj.put("questionID", questionID);
 				obj.put("questionTitle", getQuestionTitleByID(Integer.parseInt(questionID)));
-				obj.put("time", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("content", results.getString("content"));
 				trendEntryList.add(obj);
 			}

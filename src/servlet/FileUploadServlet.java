@@ -45,8 +45,8 @@ public class FileUploadServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
@@ -54,8 +54,8 @@ public class FileUploadServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// checks if the user has logged in
 		request.setCharacterEncoding("utf-8");
 		User user = (User) request.getSession().getAttribute("user");
@@ -92,11 +92,9 @@ public class FileUploadServlet extends HttpServlet {
 		// constructs the directory path to store upload file
 		// this path is relative to application's directory
 		if (action.equals("uploadUserAvatar")) {
-			uploadPath = getServletContext().getRealPath("") + File.separator
-					+ "img/avatar";
+			uploadPath = getServletContext().getRealPath("") + File.separator + "img/avatar";
 		} else if (action.equals("addAnswerWithImage")) {
-			uploadPath = getServletContext().getRealPath("") + File.separator
-					+ "img/upload";
+			uploadPath = getServletContext().getRealPath("") + File.separator + "img/upload";
 		}
 		// creates the directory if it does not exist
 		File uploadDir = new File(uploadPath);
@@ -122,25 +120,20 @@ public class FileUploadServlet extends HttpServlet {
 				for (FileItem item : formItems) {
 					if (!item.isFormField()) {
 						String fileName = UUID.randomUUID().toString();
-						String filePath = uploadPath + File.separator
-								+ fileName;
+						String filePath = uploadPath + File.separator + fileName;
 						File storeFile = new File(filePath);
 						// saves the file on disk
 						item.write(storeFile);
 						if (action.equals("uploadUserAvatar")) {
 							dao.modifyAvatarPath(user, fileName);
-							request.getSession().setAttribute("user",
-									dao.getUserByID("" + user.getUserID())); // renew
-																				// session.
-							request.getSession().setAttribute(
-									"saveAvatarResponseMessage", "头像修改成功!");
+							// renew session.
+							request.getSession().setAttribute("user", dao.getUserByID("" + user.getUserID()));
+							request.getSession().setAttribute("saveAvatarResponseMessage", "头像修改成功!");
 							response.sendRedirect("settings.jsp");
 						} else if (action.equals("addAnswerWithImage")) {
-							newAnswerContent += "<img src=\"img/upload/"
-									+ fileName + "\" />";
+							newAnswerContent += "<img src=\"img/upload/" + fileName + "\" />";
 							dao.addAnswer(user, questionID, newAnswerContent);
-							response.sendRedirect("question.jsp?id="
-									+ questionID);
+							response.sendRedirect("course.jsp?id=" + questionID);
 						}
 					}
 				}

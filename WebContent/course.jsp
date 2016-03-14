@@ -45,7 +45,7 @@
 					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
 					<div id="questionMetadata">
 						<span class="userName"><span>开课老师：</span><a
-							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>开课学期：</span><span><%=currentCourse.getSection()%></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span>
+							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span>
 					</div>
 				</div>
 				<div class="columnDiv" id="getMoreAnswersDiv">

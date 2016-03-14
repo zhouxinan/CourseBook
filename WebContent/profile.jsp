@@ -34,7 +34,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/profile.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
-<script src="lib/jquery-2.1.3.min.js"></script>
+<script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,7 +56,7 @@
 						%>
 						<div class="columnDiv">
 							<div>
-								<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseName()%></a>
+								<a href="course.jsp?id=<%=course.getCourseID()%>"><%=course.getCourseSN() + " " + course.getCourseName() + "（" + course.getTeacherName() + "）"%></a>
 							</div>
 						</div>
 						<%
@@ -69,7 +69,7 @@
 						%>
 						<div class="columnDiv">
 							<div>
-								<a href="course.jsp?id=<%=obj.get("questionID")%>"><%=obj.get("questionTitle")%></a>
+								<a href="course.jsp?id=<%=obj.get("courseID")%>"><%=obj.get("courseSN") + " " + obj.get("courseName") + "（" + obj.get("teacherName") + "）"%></a>
 							</div>
 							<div class="replyContent"><%=obj.get("content")%></div>
 							<div class="replyTime"><%=obj.get("answerTime")%></div>

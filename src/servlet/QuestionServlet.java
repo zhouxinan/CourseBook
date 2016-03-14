@@ -95,7 +95,7 @@ public class QuestionServlet extends HttpServlet {
 			String content = request.getParameter("content");
 			try {
 				int newQuestionID = dao.addQuestion(user, title, content);
-				response.sendRedirect("question.jsp?id=" + newQuestionID);
+				response.sendRedirect("course.jsp?id=" + newQuestionID);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
