@@ -61,12 +61,17 @@ public class Dao {
 			results = sm
 					.executeQuery("select * from user where email='" + email + "' and password = '" + password + "'");
 			if (results.next()) {
+				if (results.getInt("user_state") == User.STATE_DISABLED)
+					throw new LoginServletException("你的账号暂未启用");
+				if (results.getInt("user_state") == User.STATE_DELETED)
+					throw new LoginServletException("你的账号已注销");
 				User user = new User();
 				user.setUserID(results.getInt("userID"));
 				user.setUsername(results.getString("username"));
 				user.setEmail(email);
 				user.setAvatarPath(results.getString("avatarPath"));
 				user.setMotto(results.getString("motto"));
+				user.setType(results.getInt("user_type"));
 				return user;
 			} else {
 				throw new LoginServletException("邮箱或密码错误");

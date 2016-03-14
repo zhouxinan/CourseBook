@@ -7,8 +7,11 @@ public class User {
 	private String avatarPath;
 	private String motto;
 	private int type;
-	private boolean disabled;
-
+	private int state;
+	public static final int STATE_ENABLED = 0;
+	public static final int STATE_DISABLED = 1;
+	public static final int STATE_DELETED = 2;
+	
 	public int getUserID() {
 		return userID;
 	}
@@ -57,12 +60,12 @@ public class User {
 		this.type = type;
 	}
 
-	public boolean isDisabled() {
-		return disabled;
+	public int getState() {
+		return state;
 	}
 
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
+	public void setState(int state) {
+		this.state = state;
 	}
 
 }
