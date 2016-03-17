@@ -128,7 +128,7 @@ function sendAnswer() {
 			success : function(data) {
 				addAnswerToPage(data.userID, data.avatarPath, data.username,
 						data.motto, data.content, data.answerTime,
-						data.answerID, data.replyCount);
+						data.answerID, data.replyCount, data.rate);
 				$("#newAnswerContent").val("");
 				setReplyCountDivAction();
 			},
@@ -164,7 +164,7 @@ function processAnswerData(data) {
 	for (i = 0; i < data.length; i++) {
 		addAnswerToPage(data[i].userID, data[i].avatarPath, data[i].username,
 				data[i].motto, data[i].content, data[i].answerTime,
-				data[i].answerID, data[i].replyCount);
+				data[i].answerID, data[i].replyCount, data[i].rate);
 	}
 	startingIndex += data.length;
 	if (data.length < 5) {
@@ -179,10 +179,10 @@ function processAnswerData(data) {
 }
 
 function addAnswerToPage(userID, avatarPath, username, motto, content,
-		answerTime, answerID, replyCount) {
+		answerTime, answerID, replyCount, rate) {
 	var columnDiv = document.createElement('div');
 	columnDiv.setAttribute('class', 'columnDiv');
-	columnDiv.innerHTML = '<div class="userInfoDiv"><a href="profile.jsp?id='
+	columnDiv.innerHTML = '<div class="userInfoDiv"><div class="rateStars"></div><a href="profile.jsp?id='
 			+ userID + '"><img class="userAvatar" src="img/avatar/'
 			+ avatarPath + '" /><span class="userName">' + username
 			+ ' </span></a><span class="userSignature">' + motto
@@ -191,6 +191,8 @@ function addAnswerToPage(userID, avatarPath, username, motto, content,
 			+ '</div> <div class="replyCountDiv noSelect">评论 (' + replyCount
 			+ ')</div><div class="answerID hidden">' + answerID
 			+ '</div></div><div class="replyListDiv"></div>';
+	var $columnDiv = $(columnDiv);
+	$columnDiv.children().children().css("background-position", "0 " + (rate*30 - 150) + "px");
 	$("#getMoreAnswersDiv").before(columnDiv);
 }
 

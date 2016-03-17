@@ -715,6 +715,7 @@ public class Dao {
 				obj.put("content", results.getString("content"));
 				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("replyCount", results.getInt("replyCount"));
+				obj.put("rate", results.getInt("rate"));
 				answerList.add(obj);
 			}
 			return answerList;
@@ -763,6 +764,7 @@ public class Dao {
 				obj.put("content", results.getString("content"));
 				obj.put("answerTime", dateFormat.format(results.getTimestamp("answerTime")));
 				obj.put("replyCount", 0);
+				obj.put("rate", results.getInt("rate"));
 				return obj;
 			}
 		} catch (SQLException e) {
