@@ -340,7 +340,7 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			results = sm.executeQuery(
-					"select * from user inner join (SELECT toUserID, COUNT(*) as popularity from follows GROUP BY toUserID) as a on user.userID = a.toUserID ORDER BY popularity DESC LIMIT "
+					"select * from user inner join (SELECT toUserID, COUNT(*) as popularity from follows GROUP BY toUserID) as A on user.userID = A.toUserID ORDER BY popularity DESC LIMIT "
 							+ popularUserNumber);
 			List<JSONObject> popularUserList = new LinkedList<JSONObject>();
 			while (results.next()) {
@@ -668,8 +668,8 @@ public class Dao {
 				course.setCourseID(courseID);
 				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
-				course.setCourseCredit(Integer.parseInt(results.getString("courseCredit")));
-				course.setTeacherID(Integer.parseInt(results.getString("teacherID")));
+				course.setCourseCredit(results.getInt("courseCredit"));
+				course.setTeacherID(results.getInt("teacherID"));
 				course.setTeacherName(results.getString("username"));
 				return course;
 			} else {
@@ -901,7 +901,7 @@ public class Dao {
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
-				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseID(results.getInt("courseID"));
 				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
 				course.setTeacherName(results.getString("username"));
@@ -938,7 +938,7 @@ public class Dao {
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
-				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseID(results.getInt("courseID"));
 				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
 				course.setTeacherName(results.getString("username"));
@@ -976,7 +976,7 @@ public class Dao {
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
-				course.setCourseID(Integer.parseInt(results.getString("courseID")));
+				course.setCourseID(results.getInt("courseID"));
 				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
 				course.setTeacherName(results.getString("username"));
