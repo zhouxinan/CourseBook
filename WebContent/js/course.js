@@ -122,7 +122,7 @@ function sendAnswer() {
 				action : 'addAnswer',
 				questionID : $("#questionIDDiv").html(),
 				content : content,
-				rate: $("input[name='rate']:checked").val()
+				rate : $("input[name='rate']:checked").val()
 			},
 			dataType : "json",
 			success : function(data) {
@@ -130,6 +130,7 @@ function sendAnswer() {
 						data.motto, data.content, data.answerTime,
 						data.answerID, data.replyCount, data.rate);
 				$("#newAnswerContent").val("");
+				$("input:radio").attr('checked', false);
 				setReplyCountDivAction();
 			},
 			error : function() {
@@ -183,16 +184,25 @@ function addAnswerToPage(userID, avatarPath, username, motto, content,
 	var columnDiv = document.createElement('div');
 	columnDiv.setAttribute('class', 'columnDiv');
 	columnDiv.innerHTML = '<div class="userInfoDiv"><div class="rateStars"></div><a href="profile.jsp?id='
-			+ userID + '"><img class="userAvatar" src="img/avatar/'
-			+ avatarPath + '" /><span class="userName">' + username
-			+ ' </span></a><span class="userSignature">' + motto
-			+ '</span></div><div class="answer"><p>' + content
-			+ '</p></div><div class="answerMetadata"><div>' + answerTime
-			+ '</div> <div class="replyCountDiv noSelect">评论 (' + replyCount
-			+ ')</div><div class="answerID hidden">' + answerID
+			+ userID
+			+ '"><img class="userAvatar" src="img/avatar/'
+			+ avatarPath
+			+ '" /><span class="userName">'
+			+ username
+			+ ' </span></a><span class="userSignature">'
+			+ motto
+			+ '</span></div><div class="answer"><p>'
+			+ content
+			+ '</p></div><div class="answerMetadata"><div>'
+			+ answerTime
+			+ '</div> <div class="replyCountDiv noSelect">评论 ('
+			+ replyCount
+			+ ')</div><div class="answerID hidden">'
+			+ answerID
 			+ '</div></div><div class="replyListDiv"></div>';
 	var $columnDiv = $(columnDiv);
-	$columnDiv.children().children().css("background-position", "0 " + (rate*30 - 150) + "px");
+	$columnDiv.children().children().css("background-position",
+			"0 " + (rate * 30 - 150) + "px");
 	$("#getMoreAnswersDiv").before(columnDiv);
 }
 
