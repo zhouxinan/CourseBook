@@ -735,7 +735,7 @@ public class Dao {
 		return null;
 	}
 
-	public JSONObject addAnswer(User user, int courseID, String content) throws SQLException {
+	public JSONObject addAnswer(User user, int courseID, String content, int rate) throws SQLException {
 		Connection con = null;
 		PreparedStatement sm = null;
 		ResultSet results = null;
@@ -744,8 +744,8 @@ public class Dao {
 		int newAnswerID = 0;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
-			sm = con.prepareStatement("insert into answers(courseID, userID, content) values('" + courseID + "', '"
-					+ userID + "', '" + content + "')", Statement.RETURN_GENERATED_KEYS);
+			sm = con.prepareStatement("insert into answers(courseID, userID, content, rate) values('" + courseID + "', '"
+					+ userID + "', '" + content + "', '" + rate + "')", Statement.RETURN_GENERATED_KEYS);
 			sm.executeUpdate();
 			results = sm.getGeneratedKeys();
 			if (results.next()) {

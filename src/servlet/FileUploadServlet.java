@@ -88,6 +88,7 @@ public class FileUploadServlet extends HttpServlet {
 		Dao dao = Dao.getInstance();
 		String action = request.getParameter("action");
 		String newAnswerContent = "";
+		int rate = 0;
 		int questionID = 0;
 		// constructs the directory path to store upload file
 		// this path is relative to application's directory
@@ -112,6 +113,8 @@ public class FileUploadServlet extends HttpServlet {
 						String fieldName = item.getFieldName();
 						if (fieldName.equals("newAnswerContent")) {
 							newAnswerContent = item.getString("UTF-8");
+						} else if (fieldName.equals("rate")) {
+							rate = Integer.parseInt(item.getString());
 						} else if (fieldName.equals("questionID")) {
 							questionID = Integer.parseInt(item.getString());
 						}
@@ -132,7 +135,7 @@ public class FileUploadServlet extends HttpServlet {
 							response.sendRedirect("settings.jsp");
 						} else if (action.equals("addAnswerWithImage")) {
 							newAnswerContent += "<img src=\"img/upload/" + fileName + "\" />";
-							dao.addAnswer(user, questionID, newAnswerContent);
+							dao.addAnswer(user, questionID, newAnswerContent, rate);
 							response.sendRedirect("course.jsp?id=" + questionID);
 						}
 					}

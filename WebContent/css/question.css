@@ -137,3 +137,8 @@
 		width: 100%;
 	}
 }
+
+#rateDiv {
+	padding-bottom: 15px;
+	width: 100%;
+}

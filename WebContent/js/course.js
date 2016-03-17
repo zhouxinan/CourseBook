@@ -101,6 +101,10 @@ function addReplyToPage(userID, avatarPath, username, content, replyTime,
 function sendAnswer() {
 	var content = $("#newAnswerContent").val();
 	var file = document.getElementById("file").files[0];
+	if ($("input[name='rate']:checked").val() == undefined) {
+		alert("请给课程打分！");
+		return;
+	}
 	if (content == "" && file == undefined) {
 		$("#newAnswerContent").attr("placeholder", "请输入回答内容，或选择上传一张照片");
 		$("#newAnswerContent").focus();
@@ -117,7 +121,8 @@ function sendAnswer() {
 			data : {
 				action : 'addAnswer',
 				questionID : $("#questionIDDiv").html(),
-				content : content
+				content : content,
+				rate: $("input[name='rate']:checked").val()
 			},
 			dataType : "json",
 			success : function(data) {

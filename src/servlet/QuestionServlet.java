@@ -109,10 +109,11 @@ public class QuestionServlet extends HttpServlet {
 		} else if (action.equals("addAnswer")) {
 			String questionID = request.getParameter("questionID");
 			String content = request.getParameter("content");
+			String rate = request.getParameter("rate");
 			try {
 				PrintWriter out = response.getWriter();
 				out.println(dao.addAnswer(user, Integer.parseInt(questionID),
-						content));
+						content, Integer.parseInt(rate)));
 				out.close();
 				return;
 			} catch (NumberFormatException e) {

@@ -58,6 +58,13 @@
 					<form id="newAnswerForm" method="POST"
 						action="FileUploadServlet?action=addAnswerWithImage"
 						enctype="multipart/form-data">
+						<div id="rateDiv">
+							<input type="radio" name="rate" value="1"/>1分
+							<input type="radio" name="rate" value="2"/>2分
+							<input type="radio" name="rate" value="3"/>3分
+							<input type="radio" name="rate" value="4"/>4分
+							<input type="radio" name="rate" value="5"/>5分
+						</div>
 						<textarea id="newAnswerContent" name="newAnswerContent"
 							placeholder="我来告诉大家这门课怎么样"></textarea>
 						<div id="resetFileDiv" class="hidden">
