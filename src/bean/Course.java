@@ -8,6 +8,7 @@ public class Course {
 	private int teacherID;
 	private String teacherName;
 	private int sectionID;
+	private double rate;
 
 	public int getCourseID() {
 		return courseID;
@@ -63,5 +64,13 @@ public class Course {
 
 	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
 	}
 }
