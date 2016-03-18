@@ -657,6 +657,7 @@ public class Dao {
 		Connection con = null;
 		Statement sm = null;
 		ResultSet results = null;
+		Course course = new Course();
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
@@ -664,13 +665,20 @@ public class Dao {
 					"select * from course INNER JOIN user on course.teacherID=user.userID where courseID='" + courseID
 							+ "'");
 			if (results.next()) {
-				Course course = new Course();
 				course.setCourseID(courseID);
 				course.setCourseSN(results.getString("courseSN"));
 				course.setCourseName(results.getString("courseName"));
 				course.setCourseCredit(results.getInt("courseCredit"));
 				course.setTeacherID(results.getInt("teacherID"));
 				course.setTeacherName(results.getString("username"));
+			} else {
+				return null;
+			}
+			results.close();
+			results = sm.executeQuery(
+					"select avg(rate) from (select rate from answers where courseID=" + courseID + ") as A");
+			if (results.next()) {
+				course.setRate(results.getDouble("avg(rate)"));
 				return course;
 			} else {
 				return null;
@@ -745,8 +753,8 @@ public class Dao {
 		int newAnswerID = 0;
 		try {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
-			sm = con.prepareStatement("insert into answers(courseID, userID, content, rate) values('" + courseID + "', '"
-					+ userID + "', '" + content + "', '" + rate + "')", Statement.RETURN_GENERATED_KEYS);
+			sm = con.prepareStatement("insert into answers(courseID, userID, content, rate) values('" + courseID
+					+ "', '" + userID + "', '" + content + "', '" + rate + "')", Statement.RETURN_GENERATED_KEYS);
 			sm.executeUpdate();
 			results = sm.getGeneratedKeys();
 			if (results.next()) {
@@ -1108,6 +1116,37 @@ public class Dao {
 			}
 			// Collections.sort(discoveryEntryList, new MyComparator());
 			return discoveryEntryList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
+	public JSONObject getChartDataForCourseAnswerRate(int courseID) throws SQLException {
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		JSONObject obj = new JSONObject();
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			results = sm.executeQuery(
+					"SELECT rate, COUNT(*) as rate_count from answers where courseID=" + courseID + " group by rate");
+			while (results.next()) {
+				obj.put(results.getString("rate"), results.getString("rate_count"));
+			}
+			return obj;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

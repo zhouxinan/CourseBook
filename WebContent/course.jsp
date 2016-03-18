@@ -29,7 +29,6 @@
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/question.css" />
-<script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,9 +44,18 @@
 					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
 					<div id="questionMetadata">
 						<span class="userName"><span>开课老师：</span><a
-							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span>
+							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span><span>用户平均评分：
+							<%
+							double rate = currentCourse.getRate();
+							out.print((rate == 0) ? "暂无" : rate);
+						%>
+						</span>
 					</div>
 				</div>
+				<div id="chartContainer"></div>
+				<script type="text/javascript" src="lib/highcharts.js"></script>
+				<script type="text/javascript" src="lib/exporting.js"></script>
+				<script type="text/javascript" src="js/chart.js"></script>
 				<div class="columnDiv" id="getMoreAnswersDiv">
 					<button id="getMoreAnswersButton">显示更多</button>
 				</div>
@@ -59,11 +67,10 @@
 						action="FileUploadServlet?action=addAnswerWithImage"
 						enctype="multipart/form-data">
 						<div id="rateDiv">
-							<input type="radio" name="rate" value="1"/>1分
-							<input type="radio" name="rate" value="2"/>2分
-							<input type="radio" name="rate" value="3"/>3分
-							<input type="radio" name="rate" value="4"/>4分
-							<input type="radio" name="rate" value="5"/>5分
+							<input type="radio" name="rate" value="1" />1分 <input
+								type="radio" name="rate" value="2" />2分 <input type="radio"
+								name="rate" value="3" />3分 <input type="radio" name="rate"
+								value="4" />4分 <input type="radio" name="rate" value="5" />5分
 						</div>
 						<textarea id="newAnswerContent" name="newAnswerContent"
 							placeholder="我来告诉大家这门课怎么样"></textarea>
