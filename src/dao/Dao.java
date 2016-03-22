@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import bean.Course;
@@ -679,10 +680,17 @@ public class Dao {
 					"select avg(rate) from (select rate from answers where courseID=" + courseID + ") as A");
 			if (results.next()) {
 				course.setRate(results.getDouble("avg(rate)"));
-				return course;
 			} else {
 				return null;
 			}
+			results.close();
+			results = sm.executeQuery("select * from course_section where courseID='" + courseID + "'");
+			ArrayList<Integer> sectionList = new ArrayList<Integer>();
+			while (results.next()) {
+				sectionList.add(results.getInt("sectionID"));
+			}
+			course.setSectionList(sectionList);
+			return course;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.ArrayList;
+
 public class Course {
 	private int courseID;
 	private String courseSN;
@@ -7,8 +9,8 @@ public class Course {
 	private int courseCredit;
 	private int teacherID;
 	private String teacherName;
-	private int sectionID;
 	private double rate;
+	private ArrayList<Integer> sectionList;
 
 	public int getCourseID() {
 		return courseID;
@@ -50,14 +52,6 @@ public class Course {
 		this.teacherID = teacherID;
 	}
 
-	public int getSection() {
-		return sectionID;
-	}
-
-	public void setSection(int sectionID) {
-		this.sectionID = sectionID;
-	}
-
 	public String getTeacherName() {
 		return teacherName;
 	}
@@ -72,5 +66,13 @@ public class Course {
 
 	public void setRate(double rate) {
 		this.rate = rate;
+	}
+
+	public ArrayList<Integer> getSectionList() {
+		return sectionList;
+	}
+
+	public void setSectionList(ArrayList<Integer> sectionList) {
+		this.sectionList = sectionList;
 	}
 }

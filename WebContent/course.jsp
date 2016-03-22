@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ page import="dao.*"%>
+<%@ page import="java.util.*"%>
 <%@ page import="java.util.List"%>
 <%@ page import="org.json.*"%>
 <%@ page import="bean.*"%>
@@ -23,6 +24,7 @@
 		response.sendRedirect("404.jsp");
 		return;
 	}
+	ArrayList<Integer> sectionList = currentCourse.getSectionList();
 %>
 <html>
 <head>
@@ -52,7 +54,15 @@
 						</span>
 					</div>
 				</div>
-				<div id="chartContainer"></div>
+				<div class="columnDiv">
+					<%
+						for (int i = 0; i < sectionList.size(); i++) {
+							out.println("<div class=\"section\">" + sectionList.get(i) + "</div>");
+						}
+					%>
+				</div>
+				<script type="text/javascript" src="js/section.js"></script>
+				<div id="chartContainer" class="columnDiv"></div>
 				<script type="text/javascript" src="lib/highcharts.js"></script>
 				<script type="text/javascript" src="lib/exporting.js"></script>
 				<script type="text/javascript" src="js/chart.js"></script>
