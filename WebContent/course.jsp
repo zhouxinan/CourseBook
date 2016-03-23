@@ -44,7 +44,11 @@
 				<div class="columnDiv">
 					<div id="questionIDDiv" class="hidden"><%=currentCourse.getCourseID()%></div>
 					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
-					<button id="followButton"></button>
+					<%
+						if (user != null) {
+							out.print("<button id=\"followButton\"></button>");
+						}
+					%>
 					<div class="clear"></div>
 					<div id="questionMetadata">
 						<span class="userName"><span>开课老师：</span><a

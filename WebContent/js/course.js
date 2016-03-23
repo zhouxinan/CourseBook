@@ -238,3 +238,43 @@ $("#uploadImgButton").bind('click', function() {
 });
 
 setFileTypeValidator();
+
+function processData(data) {
+	if (data == "true") {
+		$("#followButton").html('取消关注');
+		$("#followButton").css("color","white");
+		$("#followButton").css("background-color","#1abc9c");
+	} else {
+		$("#followButton").html('关注');
+		$("#followButton").css("color","#1abc9c");
+		$("#followButton").css("background-color","white");
+	}
+}
+
+$("#followButton").click(function() {
+	if ($(this).html() == '关注') {
+		sendfollow('followCourse');
+	} else {
+		sendfollow('defollowCourse');
+	}
+});
+
+function sendfollow(action) {
+	$.ajax({
+		type : 'POST',
+		url : "FollowServlet",
+		data : {
+			action : action,
+			courseID : $("#questionIDDiv").html()
+		},
+		dataType : "text",
+		success : function(data) {
+			processData(data);
+		},
+		error : function() {
+			alert("Connection error!");
+		}
+	});
+}
+
+sendfollow('isUserFollowingCourse');

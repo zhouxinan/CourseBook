@@ -1171,4 +1171,89 @@ public class Dao {
 		}
 		return null;
 	}
+
+	public boolean followCourse(User user, int courseID) throws SQLException {
+		int userID = user.getUserID();
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			sm.executeUpdate("insert into user_course(userID, courseID) values('" + userID + "', '" + courseID + "')");
+			return isFollowingCourse(user, courseID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return false;
+	}
+
+	public boolean isFollowingCourse(User user, int courseID) throws SQLException {
+		int userID = user.getUserID();
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			results = sm.executeQuery(
+					"SELECT * from user_course where userID='" + userID + "' and courseID='" + courseID + "'");
+			if (results.next()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return false;
+	}
+
+	public boolean defollowCourse(User user, int courseID) throws SQLException {
+		int userID = user.getUserID();
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			sm.executeUpdate("delete from user_course where userID='" + userID + "' and courseID='" + courseID + "'");
+			return isFollowingCourse(user, courseID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return false;
+	}
 }

@@ -32,8 +32,8 @@ public class FollowServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
@@ -41,16 +41,15 @@ public class FollowServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		Dao dao = Dao.getInstance();
 		String action = request.getParameter("action");
 		User user = (User) request.getSession().getAttribute("user");
 		if (action.equals("getPopularUserList")) {
-			int popularUserNumber = Integer.parseInt(request
-					.getParameter("popularUserNumber"));
+			int popularUserNumber = Integer.parseInt(request.getParameter("popularUserNumber"));
 			try {
 				PrintWriter out = response.getWriter();
 				out.println(dao.getPopularUserList(popularUserNumber));
@@ -78,8 +77,7 @@ public class FollowServlet extends HttpServlet {
 		}
 		if (action.equals("follow")) {
 			try {
-				int toUserID = Integer.parseInt(request
-						.getParameter("toUserID"));
+				int toUserID = Integer.parseInt(request.getParameter("toUserID"));
 				PrintWriter out = response.getWriter();
 				out.println(dao.follow(user, toUserID));
 				out.close();
@@ -89,8 +87,7 @@ public class FollowServlet extends HttpServlet {
 			}
 		} else if (action.equals("defollow")) {
 			try {
-				int toUserID = Integer.parseInt(request
-						.getParameter("toUserID"));
+				int toUserID = Integer.parseInt(request.getParameter("toUserID"));
 				PrintWriter out = response.getWriter();
 				out.println(dao.defollow(user, toUserID));
 				out.close();
@@ -100,10 +97,39 @@ public class FollowServlet extends HttpServlet {
 			}
 		} else if (action.equals("checkFollow")) {
 			try {
-				int toUserID = Integer.parseInt(request
-						.getParameter("toUserID"));
+				int toUserID = Integer.parseInt(request.getParameter("toUserID"));
 				PrintWriter out = response.getWriter();
 				out.print(dao.checkFollow(user, toUserID));
+				out.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("isUserFollowingCourse")) {
+			try {
+				int courseID = Integer.parseInt(request.getParameter("courseID"));
+				PrintWriter out = response.getWriter();
+				out.print(dao.isFollowingCourse(user, courseID));
+				out.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("followCourse")) {
+			try {
+				int courseID = Integer.parseInt(request.getParameter("courseID"));
+				PrintWriter out = response.getWriter();
+				out.print(dao.followCourse(user, courseID));
+				out.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("defollowCourse")) {
+			try {
+				int courseID = Integer.parseInt(request.getParameter("courseID"));
+				PrintWriter out = response.getWriter();
+				out.print(dao.defollowCourse(user, courseID));
 				out.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
