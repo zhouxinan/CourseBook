@@ -1,5 +1,7 @@
 #questionTitle {
 	font-size: 1.5em;
+	float: left;
+	width: 80%;
 }
 
 #questionMetadata {
@@ -151,4 +153,10 @@
 	margin: 10px 0 0 0;
 	overflow: hidden;
 	float: right;
+}
+
+#followButton {
+	float: right;
+	width: 50px;
+	margin: 5px;
 }

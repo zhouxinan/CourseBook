@@ -34,7 +34,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>课谱 - 提问</title>
+<title>课谱 - 评课</title>
 </head>
 <body>
 	<jsp:include page="navigator.jsp" />
@@ -44,6 +44,8 @@
 				<div class="columnDiv">
 					<div id="questionIDDiv" class="hidden"><%=currentCourse.getCourseID()%></div>
 					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
+					<button id="followButton"></button>
+					<div class="clear"></div>
 					<div id="questionMetadata">
 						<span class="userName"><span>开课老师：</span><a
 							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span><span>用户平均评分：
