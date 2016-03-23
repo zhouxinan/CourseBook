@@ -988,9 +988,9 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			results = sm.executeQuery(
-					"select * from course natural join (SELECT courseID, COUNT(*) as popularity from user_course GROUP BY courseID) as a inner join user on course.teacherID=user.userID where courseName like '%"
+					"select * from course inner join user on course.teacherID=user.userID where courseName like '%"
 							+ keyword + "%' or courseSN like '%" + keyword + "%' or user.username like '%" + keyword
-							+ "%' ORDER BY popularity DESC");
+							+ "%'");
 			List<Course> courseList = new LinkedList<Course>();
 			while (results.next()) {
 				Course course = new Course();
