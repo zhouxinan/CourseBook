@@ -19,6 +19,7 @@
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/index.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <title>课谱 - 发现</title>
 </head>
 <body>
@@ -71,5 +72,6 @@
 			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

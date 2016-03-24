@@ -16,6 +16,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
 <link type="text/css" rel="stylesheet" href="css/search.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <title>课谱 - 搜索</title>
 </head>
 <body>
@@ -81,6 +82,7 @@
 			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
 <link type="text/css" rel="stylesheet" href="css/settings.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="lib/jquery-2.1.3.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>课谱 - 设置</title>
@@ -99,6 +100,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/settings.js"></script>
 </body>
 </html>

@@ -34,6 +34,7 @@
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/profile.css" />
 <link type="text/css" rel="stylesheet" href="css/tabBar.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="lib/jquery-2.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
@@ -142,6 +143,7 @@
 			<div class="clear"></div>
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/profile.js"></script>
 </body>
 </html>

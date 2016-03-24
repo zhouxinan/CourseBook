@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <title>课谱 - 404</title>
 </head>
 <body>
@@ -17,5 +18,6 @@
 			<jsp:include page="sidebar.jsp" />
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
