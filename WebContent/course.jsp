@@ -31,6 +31,7 @@
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/question.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +47,9 @@
 					<div id="questionTitle"><%=currentCourse.getCourseSN() + " " + currentCourse.getCourseName()%></div>
 					<%
 						if (user != null) {
-							out.print("<button id=\"followButton\"></button>");
+					%>
+					<button id="followButton"></button>
+					<%
 						}
 					%>
 					<div class="clear"></div>
@@ -63,12 +66,76 @@
 				<div class="columnDiv">
 					<%
 						for (int i = 0; i < sectionList.size(); i++) {
-							out.println("<div class=\"section\">" + sectionList.get(i) + "</div>");
+							int sectionID = sectionList.get(i);
+					%>
+					<div class="section"><%=sectionID%></div>
+					<div class="progress">
+						<%
+							JSONObject gradeList = dao.getSectionGrade(currentCourse, sectionID);
+								int count = gradeList.getInt("count");
+								for (int j = 0; j < gradeList.names().length(); j++) {
+									String color = null;
+									String grade = null;
+									switch (gradeList.names().getString(j)) {
+									case "count":
+										continue;
+									case "4.00":
+										color = "#e31e50";
+										grade = "A";
+										break;
+									case "3.70":
+										color = "#e5781d";
+										grade = "A-";
+										break;
+									case "3.30":
+										color = "#e3e51d";
+										grade = "B+";
+										break;
+									case "3.00":
+										color = "#7ee51d";
+										grade = "B";
+										break;
+									case "2.70":
+										color = "#1daee5";
+										grade = "B-";
+										break;
+									case "2.30":
+										color = "#d2aa2c";
+										grade = "C+";
+										break;
+									case "2.00":
+										color = "#55601b";
+										grade = "C";
+										break;
+									case "1.70":
+										color = "#007d81";
+										grade = "C-";
+										break;
+									case "1.30":
+										color = "#073b5a";
+										grade = "D";
+										break;
+									case "1.00":
+										color = "#330017";
+										grade = "D-";
+										break;
+									}
+						%>
+						<div class="progress-bar"
+							style=<%="width:" + gradeList.getDouble(gradeList.names().getString(j)) * 100 / count
+							+ "%;background-color:" + color%>><%=grade%></div>
+						<%
+							}
+						%>
+					</div>
+					<%
 						}
 					%>
 				</div>
 				<script type="text/javascript" src="js/section.js"></script>
-				<div id="chartContainer" class="columnDiv"></div>
+				<div id="chartContainer" class="columnDiv">
+					<div id="answerRateChart" class="chart"></div>
+				</div>
 				<script type="text/javascript" src="lib/highcharts.js"></script>
 				<script type="text/javascript" src="lib/exporting.js"></script>
 				<script type="text/javascript" src="js/chart.js"></script>
@@ -114,6 +181,7 @@
 			<div class="clear"></div>
 		</div>
 	</div>
+	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/course.js"></script>
 </body>
 </html>

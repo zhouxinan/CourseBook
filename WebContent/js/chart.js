@@ -6,7 +6,7 @@ $.post("ChartServlet?action=getChartDataForCourseAnswerRate&courseID=" + $("#que
     for (var key in data) {
         a[key] = data[key];
     }
-    $('#chartContainer').highcharts({
+    $('#answerRateChart').highcharts({
         //图表区选项
         chart: {
             plotBackgroundColor: null,

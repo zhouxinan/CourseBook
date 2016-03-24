@@ -1256,4 +1256,44 @@ public class Dao {
 		}
 		return false;
 	}
+
+	public JSONObject getSectionGrade(Course course, int sectionID) throws SQLException {
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		JSONObject returnObj = new JSONObject();
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			results = sm.executeQuery(
+					"select student_grade,COUNT(*) as count from grade natural join (SELECT * from course_section where courseID='"
+							+ course.getCourseID() + "' and sectionID = '" + sectionID
+							+ "') as A group by student_grade");
+			while (results.next()) {
+				returnObj.put(results.getString("student_grade"), results.getString("count"));
+			}
+			results.close();
+			results = sm.executeQuery(
+					"select COUNT(*) as count from grade natural join (SELECT * from course_section where courseID='"
+							+ course.getCourseID() + "' and sectionID = '" + sectionID + "') as A");
+			if (results.next()) {
+				returnObj.put("count", results.getString("count"));
+			}
+			return returnObj;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 }

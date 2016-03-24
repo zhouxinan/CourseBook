@@ -11,6 +11,8 @@ public class User {
 	public static final int STATE_ENABLED = 0;
 	public static final int STATE_DISABLED = 1;
 	public static final int STATE_DELETED = 2;
+	public static final int TYPE_STUDENT = 0;
+	public static final int TYPE_TEACHER = 1;
 	
 	public int getUserID() {
 		return userID;

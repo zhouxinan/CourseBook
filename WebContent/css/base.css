@@ -28,6 +28,7 @@ a {
 
 a:hover {
 	color: #1abc9c;
+	text-decoration: none;
 }
 
 a:active {
