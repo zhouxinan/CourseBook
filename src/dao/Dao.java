@@ -1064,7 +1064,7 @@ public class Dao {
 			sm = con.createStatement();
 			results = sm.executeQuery("select * from answers inner join (select * from follows where fromUserID='"
 					+ userID
-					+ "') as C on C.toUserID=answers.userID natural join user as B natural join course inner join user as A on course.teacherID=A.userID ORDER BY answerTime");
+					+ "') as C on C.toUserID=answers.userID natural join user as B natural join course inner join user as A on course.teacherID=A.userID ORDER BY answerTime desc limit 0,20");
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isFollowingCourse", "0");
@@ -1082,7 +1082,7 @@ public class Dao {
 			results.close();
 			results = sm.executeQuery(
 					"SELECT * from user_course as A inner join answers as B on A.courseID=B.courseID inner join user as C on B.userID=C.userID inner join course as D on D.courseID = B.courseID inner join user as E on E.userID=D.teacherID where A.userID='"
-							+ userID + "' order by answerTime desc");
+							+ userID + "' order by answerTime desc limit 0,20");
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isFollowingCourse", "1");
@@ -1125,7 +1125,7 @@ public class Dao {
 			con = DriverManager.getConnection(url, dbUsername, dbPassword);
 			sm = con.createStatement();
 			results = sm.executeQuery(
-					"select * from answers natural join user as B natural join course inner join user as A on course.teacherID=A.userID ORDER BY answerTime");
+					"select * from answers natural join user as B natural join course inner join user as A on course.teacherID=A.userID ORDER BY answerTime desc limit 0,20");
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("time", dateFormat.format(results.getTimestamp("answerTime")));
