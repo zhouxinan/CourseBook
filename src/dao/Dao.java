@@ -112,8 +112,10 @@ public class Dao {
 			}
 			results.close();
 			// default avatar path is default.jpg
-			sm.executeUpdate("insert into user(username, password, email, avatarPath, motto) values('" + username
-					+ "', '" + password + "', '" + email + "', 'default.jpg', '这个人太懒，什么都没说……')");
+			sm.executeUpdate(
+					"insert into user(username, password, email, avatarPath, motto, user_state, user_type) values('"
+							+ username + "', '" + password + "', '" + email + "', 'default.jpg', '这个人太懒，什么都没说……', "
+							+ User.STATE_ENABLED + ", " + User.TYPE_STUDENT + ")");
 			results = sm.executeQuery("select * from user where email='" + email + "'");
 			if (results.next()) {
 				User user = new User();
@@ -1332,7 +1334,8 @@ public class Dao {
 				analysis[5] = results.getDouble("kp_point_p");
 			}
 			results.close();
-			results = sm.executeQuery("select avg(grade_point) as grade_point_avg, avg(rate_point) as rate_point_avg, avg(kp_point) as kp_point_avg from analysis");
+			results = sm.executeQuery(
+					"select avg(grade_point) as grade_point_avg, avg(rate_point) as rate_point_avg, avg(kp_point) as kp_point_avg from analysis");
 			if (results.next()) {
 				analysis[6] = results.getDouble("grade_point_avg");
 				analysis[7] = results.getDouble("rate_point_avg");
