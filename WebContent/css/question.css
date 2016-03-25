@@ -160,3 +160,11 @@
 	width: 70px;
 	margin: 5px;
 }
+
+td {
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}

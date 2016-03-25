@@ -1358,4 +1358,47 @@ public class Dao {
 		}
 		return null;
 	}
+
+	public double[] getScore(int courseID) throws SQLException {
+		double[] analysis = new double[6];
+		double[] score = new double[2];
+		Connection con = null;
+		Statement sm = null;
+		ResultSet results = null;
+		try {
+			con = DriverManager.getConnection(url, dbUsername, dbPassword);
+			sm = con.createStatement();
+			results = sm.executeQuery("select * from analysis where courseID='" + courseID + "' limit 1");
+			if (results.next()) {
+				analysis[0] = results.getDouble("grade_point");
+				analysis[1] = results.getDouble("rate_point");
+				analysis[2] = results.getDouble("kp_point");
+				analysis[3] = results.getDouble("grade_point_p");
+				analysis[4] = results.getDouble("rate_point_p");
+				analysis[5] = results.getDouble("kp_point_p");
+				score[0] = analysis[0] * analysis[3] + analysis[1] * analysis[4] + analysis[2] * analysis[5];
+			}
+			results.close();
+			results = sm.executeQuery(
+					"select AVG(grade_point*grade_point_p+rate_point*rate_point_p+kp_point*kp_point_p) as avg_score from analysis");
+			if (results.next()) {
+				score[1] = results.getDouble("avg_score");
+			}
+			return score;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sm != null) {
+				sm.close();
+			}
+			if (con != null) {
+				con.close();
+			}
+			if (results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
 }

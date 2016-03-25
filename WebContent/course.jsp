@@ -26,13 +26,14 @@
 	}
 	ArrayList<Integer> sectionList = currentCourse.getSectionList();
 	double[] analysisData = dao.getAnalysisData(currentCourse.getCourseID());
+	double[] scoreData = dao.getScore(currentCourse.getCourseID());
 %>
 <html>
 <head>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="css/base.css" />
 <link type="text/css" rel="stylesheet" href="css/layout.css" />
 <link type="text/css" rel="stylesheet" href="css/question.css" />
-<link href="css/bootstrap.min.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- For iPhone to display normally -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,7 +57,7 @@
 					<div class="clear"></div>
 					<div id="questionMetadata">
 						<span class="userName"><span>开课老师：</span><a
-							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span><span>用户平均评分：
+							href="profile.jsp?id=<%=currentCourse.getTeacherID()%>"><%=currentCourse.getTeacherName()%></a></span><span>学分：</span><span><%=currentCourse.getCourseCredit()%></span><span>学生平均评分：
 							<%
 							double rate = currentCourse.getRate();
 							out.print((rate == 0) ? "暂无" : rate);
@@ -137,9 +138,23 @@
 				<script type="text/javascript" src="lib/Chart.js"></script>
 				<div id="chartContainer" class="columnDiv">
 					<div id="answerRateChart"></div>
-					<div>
+					<div id="analysisChartDiv">
 						<canvas id="analysisChart"></canvas>
 					</div>
+					<table id="scoreTable" class="table">
+					<thead>
+						<tr>
+							<th>本课程综合评分</th>
+							<th>所有课程平均综合评分</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><%=scoreData[0] %></td>
+							<td><%=scoreData[1] %></td>
+						</tr>
+					</tbody>
+					</table>
 					<script>
 					var ctx = $("#analysisChart");
 					var data = {
