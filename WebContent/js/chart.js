@@ -15,7 +15,7 @@ $.post("ChartServlet?action=getChartDataForCourseAnswerRate&courseID=" + $("#que
         },
         //标题选项
         title: {
-            text: '用户评分分布'
+            text: '学生评分分布'
         },
         //数据点提示框
         tooltip: {

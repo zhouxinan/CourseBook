@@ -25,6 +25,7 @@
 		return;
 	}
 	ArrayList<Integer> sectionList = currentCourse.getSectionList();
+	double[] analysisData = dao.getAnalysisData(currentCourse.getCourseID());
 %>
 <html>
 <head>
@@ -133,8 +134,59 @@
 					%>
 				</div>
 				<script type="text/javascript" src="js/section.js"></script>
+				<script type="text/javascript" src="lib/Chart.js"></script>
 				<div id="chartContainer" class="columnDiv">
-					<div id="answerRateChart" class="chart"></div>
+					<div id="answerRateChart"></div>
+					<div>
+						<canvas id="analysisChart"></canvas>
+					</div>
+					<script>
+					var ctx = $("#analysisChart");
+					var data = {
+							labels: ["学生平均成绩", "学生评分", "给分靠谱度"],
+							datasets: [
+								{
+									label: "本课程",
+									backgroundColor: "rgba(138,189,95,0.2)",
+									borderColor: "rgba(138,189,95,1)",
+									pointBackgroundColor: "rgba(138,189,95,1)",
+									pointBorderColor: "#fff",
+									pointHoverBackgroundColor: "#fff",
+									pointHoverBorderColor: "rgba(138,189,95,1)",
+									data: [<%=analysisData[0]%>,<%=analysisData[1]%>,<%=analysisData[2]%>]
+								},
+								{
+									label: "所有课程平均值",
+									backgroundColor: "rgba(151,187,205,0.2)",
+									borderColor: "rgba(151,187,205,1)",
+									pointBackgroundColor: "rgba(151,187,205,1)",
+									pointBorderColor: "#fff",
+									pointHoverBackgroundColor: "#fff",
+									pointHoverBorderColor: "rgba(151,187,205,1)",
+									data: [<%=analysisData[6]%>,<%=analysisData[7]%>,<%=analysisData[8]%>]
+								}
+							]
+						};
+					var myRadarChart = new Chart(ctx, {
+						type: 'radar',
+						data: data,
+						options: {
+				            legend: {
+				                position: 'top',
+				            },
+				            title: {
+				                display: true,
+				                text: '课程统计数据'
+				            },
+				            scale: {
+				              reverse: false,
+				              ticks: {
+				                beginAtZero: true
+				              }
+				            }
+				        }
+					});
+					</script>
 				</div>
 				<script type="text/javascript" src="lib/highcharts.js"></script>
 				<script type="text/javascript" src="lib/exporting.js"></script>
