@@ -1067,7 +1067,7 @@ public class Dao {
 					+ "') as C on C.toUserID=answers.userID natural join user as B natural join course inner join user as A on course.teacherID=A.userID ORDER BY answerTime");
 			while (results.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("isQuestion", "0");
+				obj.put("isFollowingCourse", "0");
 				obj.put("userID", results.getString("userID"));
 				obj.put("avatarPath", results.getString("avatarPath"));
 				obj.put("username", results.getString("B.username"));
@@ -1080,6 +1080,23 @@ public class Dao {
 				trendEntryList.add(obj);
 			}
 			results.close();
+			results = sm.executeQuery(
+					"SELECT * from user_course as A inner join answers as B on A.courseID=B.courseID inner join user as C on B.userID=C.userID inner join course as D on D.courseID = B.courseID inner join user as E on E.userID=D.teacherID where A.userID='"
+							+ userID + "' order by answerTime desc");
+			while (results.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("isFollowingCourse", "1");
+				obj.put("userID", results.getString("B.userID"));
+				obj.put("avatarPath", results.getString("avatarPath"));
+				obj.put("username", results.getString("C.username"));
+				obj.put("courseID", results.getString("courseID"));
+				obj.put("courseSN", results.getString("courseSN"));
+				obj.put("courseName", results.getString("courseName"));
+				obj.put("teacherName", results.getString("E.username"));
+				obj.put("content", results.getString("content"));
+				obj.put("time", dateFormat.format(results.getTimestamp("answerTime")));
+				trendEntryList.add(obj);
+			}
 			// Collections.sort(trendEntryList, new MyComparator());
 			return trendEntryList;
 		} catch (SQLException e) {
@@ -1268,7 +1285,7 @@ public class Dao {
 			results = sm.executeQuery(
 					"select student_grade,COUNT(*) as count from grade natural join (SELECT * from course_section where courseID='"
 							+ course.getCourseID() + "' and sectionID = '" + sectionID
-							+ "') as A group by student_grade");
+							+ "') as A group by student_grade order by student_grade desc");
 			while (results.next()) {
 				returnObj.put(results.getString("student_grade"), results.getString("count"));
 			}
